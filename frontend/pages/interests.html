@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My interests — re.shelf</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/listing-card.css">
+  <style>
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-size: 24px; }
+    .page-header p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+    .empty-state { text-align: center; padding: 60px 0; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="page-content">
+    <div class="container">
+      <div class="page-header">
+        <h1>My interests</h1>
+        <p>Listings you've marked as interested or messaged a seller about.</p>
+      </div>
+      <div class="listings-grid" id="interests-grid">
+        <!-- Dummy interested listing -->
+        <div class="listing-card" onclick="window.location.href='listing.html?id=1'">
+          <div class="listing-card-img-placeholder">No image</div>
+          <div class="listing-card-body">
+            <div class="listing-card-title">Principles of Marketing</div>
+            <div class="listing-card-sub">UOS · Business</div>
+            <div class="listing-card-meta">
+              <span class="listing-card-price">AED 60</span>
+              <span class="tag tag-active">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
+    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+  </footer>
+  <script src="../js/utils.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/interests.js"></script>
+</body>
+</html>

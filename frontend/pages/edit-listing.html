@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit listing — re.shelf</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <style>
+    .form-card { max-width: 620px; margin: 0 auto; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 36px; }
+    .form-card h2 { font-size: 22px; margin-bottom: 24px; }
+    .form-row { display: flex; gap: 16px; }
+    .form-row .form-group { flex: 1; }
+    .danger-zone { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .danger-zone h3 { font-size: 16px; margin-bottom: 12px; color: var(--danger); }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="page-content">
+    <div class="container">
+      <div class="form-card">
+        <h2>Edit listing</h2>
+        <!-- Same fields as create-listing, pre-filled via JS -->
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="title" placeholder="e.g. Calculus: Early Transcendentals">
+        </div>
+        <div class="form-group">
+          <label>Author</label>
+          <input type="text" id="author" placeholder="e.g. James Stewart">
+        </div>
+        <div class="form-group">
+          <label>ISBN (optional)</label>
+          <input type="text" id="isbn">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>University</label>
+            <select id="uni">
+              <option value="">Select university</option>
+              <option>American University of Sharjah</option>
+              <option>University of Sharjah</option>
+              <option>Khalifa University</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select id="subject">
+              <option value="">Select subject</option>
+              <option>Engineering</option>
+              <option>Business</option>
+              <option>Medicine</option>
+              <option>Arts</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Resource type</label>
+            <select id="type">
+              <option>Textbook</option>
+              <option>Notes</option>
+              <option>Lab Manual</option>
+              <option>Past Papers</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Price (AED)</label>
+            <input type="number" id="price">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Condition</label>
+          <select id="condition">
+            <option>Like new</option>
+            <option>Good</option>
+            <option>Fair</option>
+            <option>Poor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="description" rows="4"></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="handleSave()">Save changes</button>
+        <div class="danger-zone">
+          <h3>Danger zone</h3>
+          <button class="btn btn-outline" onclick="handleMarkSold()" style="margin-right:10px;">Mark as sold</button>
+          <button class="btn btn-danger" onclick="handleDelete()">Delete listing</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
+    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+  </footer>
+  <script src="../js/utils.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/edit-listing.js"></script>
+</body>
+</html>

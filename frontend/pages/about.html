@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — re.shelf</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <style>
+    .content-card { max-width: 680px; margin: 0 auto; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 40px; }
+    .content-card h1 { font-size: 28px; color: var(--primary); margin-bottom: 8px; }
+    .content-card h2 { font-size: 18px; margin: 28px 0 10px; }
+    .content-card p  { color: var(--text-muted); line-height: 1.8; margin-bottom: 12px; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0; }
+    .step { text-align: center; padding: 20px; background: var(--primary-light); border-radius: var(--radius); }
+    .step-num { font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .step-text { font-size: 14px; color: var(--text); }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="page-content">
+    <div class="container">
+      <div class="content-card">
+        <h1>re.shelf</h1>
+        <p>A marketplace for students to buy and sell second-hand academic resources — textbooks, notes, lab manuals, and more.</p>
+        <h2>How it works</h2>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-text">Browse or search for what you need</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">Message the seller and agree on a meetup</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">Meet locally and exchange the resource</div></div>
+        </div>
+        <h2>Why re.shelf?</h2>
+        <p>Academic resources are expensive and often only used for one semester. re.shelf connects students at the same university — or nearby — to make buying and selling easier and more affordable.</p>
+        <p>Search by university or subject so you find exactly the edition your course requires.</p>
+      </div>
+    </div>
+  </div>
+  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
+    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+  </footer>
+  <script src="../js/utils.js"></script>
+  <script src="../js/navbar.js"></script>
+</body>
+</html>

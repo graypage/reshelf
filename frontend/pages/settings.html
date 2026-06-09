@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — re.shelf</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <style>
+    .settings-layout { display: grid; grid-template-columns: 200px 1fr; gap: 32px; }
+    .settings-nav a { display: block; padding: 10px 14px; border-radius: var(--radius); font-size: 15px; color: var(--text-muted); margin-bottom: 4px; }
+    .settings-nav a.active, .settings-nav a:hover { background: var(--primary-light); color: var(--primary); }
+    .settings-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px; }
+    .settings-card h2 { font-size: 20px; margin-bottom: 24px; }
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+    @media(max-width:600px){ .settings-layout{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="page-content">
+    <div class="container">
+      <div class="settings-layout">
+        <nav class="settings-nav">
+          <a href="#profile" class="active">Public profile</a>
+          <a href="#account">Account</a>
+          <a href="#password">Password</a>
+        </nav>
+        <div>
+          <!-- Public profile section -->
+          <div class="settings-card" id="section-profile">
+            <h2>Public profile</h2>
+            <div class="form-group">
+              <label>Display name</label>
+              <input type="text" id="display-name" placeholder="How others see your name">
+            </div>
+            <div class="form-group">
+              <label>University</label>
+              <select id="university">
+                <option value="">Select university</option>
+                <option>American University of Sharjah</option>
+                <option>University of Sharjah</option>
+                <option>Khalifa University</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>General area / city</label>
+              <input type="text" id="location" placeholder="e.g. Sharjah, Dubai">
+            </div>
+            <div class="form-group">
+              <label>Bio (optional)</label>
+              <textarea id="bio" rows="3" placeholder="A short note for buyers..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="saveProfile()">Save profile</button>
+          </div>
+          <hr class="section-divider">
+          <!-- Account section -->
+          <div class="settings-card" id="section-account">
+            <h2>Account</h2>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="email" placeholder="your@email.com">
+            </div>
+            <button class="btn btn-primary" onclick="saveAccount()">Update email</button>
+          </div>
+          <hr class="section-divider">
+          <!-- Password section -->
+          <div class="settings-card" id="section-password">
+            <h2>Change password</h2>
+            <div class="form-group">
+              <label>Current password</label>
+              <input type="password" id="current-pass">
+            </div>
+            <div class="form-group">
+              <label>New password</label>
+              <input type="password" id="new-pass">
+            </div>
+            <div class="form-group">
+              <label>Confirm new password</label>
+              <input type="password" id="confirm-pass">
+            </div>
+            <button class="btn btn-primary" onclick="changePassword()">Change password</button>
+            <hr class="section-divider">
+            <button class="btn btn-danger" onclick="handleLogout()">Log out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
+    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+  </footer>
+  <script src="../js/utils.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/settings.js"></script>
+</body>
+</html>
