@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listing — re.shelf</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <style>
+    .listing-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .listing-image { background: var(--primary-light); border-radius: var(--radius); height: 320px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 14px; }
+    .listing-info h1 { font-size: 24px; margin-bottom: 8px; }
+    .listing-price { font-size: 28px; font-weight: 700; color: var(--primary); margin: 12px 0; }
+    .listing-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+    .listing-meta span { margin-right: 16px; }
+    .listing-desc { font-size: 15px; line-height: 1.7; margin-bottom: 24px; }
+    .seller-card { background: var(--secondary); border-radius: var(--radius); padding: 16px; margin-top: 20px; }
+    .seller-card h3 { font-size: 15px; margin-bottom: 8px; }
+    .action-buttons { display: flex; gap: 12px; }
+    @media(max-width:700px){ .listing-layout{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="page-content">
+    <div class="container">
+      <div style="margin-bottom:16px;font-size:14px;color:var(--text-muted);">
+        <a href="../../index.html">Browse</a> &rsaquo; Listing detail
+      </div>
+      <div class="listing-layout">
+        <div>
+          <div class="listing-image">No image uploaded</div>
+        </div>
+        <div class="listing-info">
+          <span class="tag tag-active">Active</span>
+          <h1 id="listing-title">Calculus: Early Transcendentals</h1>
+          <div class="listing-price" id="listing-price">AED 80</div>
+          <div class="listing-meta">
+            <span id="listing-uni">AUS</span>
+            <span id="listing-subject">Engineering</span>
+            <span id="listing-type">Textbook</span>
+            <span id="listing-date">Posted 3 days ago</span>
+          </div>
+          <div class="listing-desc" id="listing-desc">
+            Good condition, minimal highlights. Used for one semester only. Includes all original pages.
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="handleInterested()">I'm interested</button>
+            <button class="btn btn-outline" onclick="handleMessage()">Message seller</button>
+          </div>
+          <div class="seller-card">
+            <h3>Seller</h3>
+            <a href="profile.html?id=1" id="seller-name" style="color:var(--primary);font-weight:600;">Ahmed K.</a>
+            <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">Sharjah area · Member since 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
+    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+  </footer>
+  <script src="../js/utils.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/listing.js"></script>
+</body>
+</html>
