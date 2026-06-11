@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inbox — re.shelf</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <style>
+    .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .inbox-header h1 { font-size: 24px; }
+    .thread-list { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .thread-item { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; }
+    .thread-item:last-child { border-bottom: none; }
+    .thread-item:hover { background: var(--secondary); }
+    .thread-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--primary); flex-shrink: 0; }
+    .thread-body { flex: 1; min-width: 0; }
+    .thread-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+    .thread-preview { font-size: 13px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .thread-meta { text-align: right; flex-shrink: 0; }
+    .thread-time { font-size: 12px; color: var(--text-muted); }
+    .thread-listing { font-size: 12px; color: var(--primary); margin-top: 2px; }
+    .unread-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); margin-top: 4px; margin-left: auto; }
+    .empty-state { text-align: center; padding: 60px 0; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="page-content">
+    <div class="container">
+      <div class="inbox-header">
+        <h1>Inbox</h1>
+      </div>
+      <div class="thread-list" id="thread-list">
+        <!-- Dummy thread -->
+        <div class="thread-item" onclick="window.location.href='conversation.html?id=1'">
+          <div class="thread-avatar">S</div>
+          <div class="thread-body">
+            <div class="thread-name">Sara M.</div>
+            <div class="thread-preview">Is the book still available?</div>
+          </div>
+          <div class="thread-meta">
+            <div class="thread-time">2h ago</div>
+            <div class="thread-listing">Calculus: Early Transcendentals</div>
+            <div class="unread-dot"></div>
+          </div>
+        </div>
+        <div class="thread-item" onclick="window.location.href='conversation.html?id=2'">
+          <div class="thread-avatar">M</div>
+          <div class="thread-body">
+            <div class="thread-name">Mohammed A.</div>
+            <div class="thread-preview">Can we meet at the library?</div>
+          </div>
+          <div class="thread-meta">
+            <div class="thread-time">Yesterday</div>
+            <div class="thread-listing">Principles of Marketing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
+    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+  </footer>
+  <script src="../js/utils.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/inbox.js"></script>
+</body>
+</html>
