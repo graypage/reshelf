@@ -1,12 +1,16 @@
 // Detect if current page is at root or inside frontend/pages/
 const inPages = window.location.pathname.includes('/pages/');
-const toRoot  = inPages ? '../../' : '';
+const toRoot  = inPages ? '../../' : '';  // If in pages, links to other pages should go up one level
 const toPages = inPages ? '' : 'frontend/pages/';
 
 const navbarHTML = `
 <nav class="navbar">
   <div class="container">
-    <a class="nav-brand" href="${toRoot}index.html">re.shelf</a>
+  
+    <a class="nav-brand" href="${toRoot}index.html">
+  <img src="/frontend/assets/images/reshelf_logo.png" alt="Reshelf Logo">
+  <span class="nav-brand-name">Reshelf</span>
+</a>
     <div class="nav-links">
       <a href="${toRoot}index.html">Browse</a>
       <a href="${toPages}about.html">About</a>
