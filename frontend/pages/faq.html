@@ -1,53 +1,192 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ — re.shelf</title>
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <style>
-    .content-card { max-width: 680px; margin: 0 auto; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 40px; }
-    .content-card h1 { font-size: 28px; margin-bottom: 28px; }
-    .faq-item { margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-    .faq-item:last-child { border-bottom: none; }
-    .faq-q { font-weight: 600; font-size: 16px; margin-bottom: 8px; }
-    .faq-a { color: var(--text-muted); font-size: 15px; line-height: 1.7; }
-  </style>
-</head>
-<body>
-  <div id="navbar"></div>
-  <div class="page-content">
-    <div class="container">
-      <div class="content-card">
-        <h1>FAQ</h1>
-        <div class="faq-item">
-          <div class="faq-q">Is re.shelf free to use?</div>
-          <div class="faq-a">Yes. Listing and browsing are completely free. re.shelf does not take any commission from sales.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">How do I pay for a book?</div>
-          <div class="faq-a">Payments are handled directly between buyer and seller during the in-person meetup. re.shelf does not process any payments.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">What is a "dead listing"?</div>
-          <div class="faq-a">A dead listing tag is added automatically to listings that have been up for a long time without the seller responding to messages or marking the item as sold. If the seller becomes active again the tag is removed.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">Can I list anything?</div>
-          <div class="faq-a">re.shelf is for academic resources only — textbooks, notes, lab manuals, past papers, and similar study materials.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">How do I stay safe when meeting a seller?</div>
-          <div class="faq-a">Always meet in a public place on or near campus. Tell someone where you are going. Inspect the item before handing over any money.</div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>FAQ — re.shelf</title>
+
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+    <link rel="stylesheet" href="../css/faq.css" />
+  </head>
+
+  <body>
+    <div id="navbar"></div>
+
+    <main class="page-content">
+      <div class="container">
+        <section class="faq-hero">
+          <span class="faq-badge">Help Center</span>
+
+          <h1>Frequently Asked Questions</h1>
+
+          <p>
+            Find quick answers about buying, selling, messaging, listings, and
+            staying safe while using re.shelf.
+          </p>
+        </section>
+
+        <section class="faq-layout">
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>Is re.shelf free to use?</span>
+                <span class="faq-icon">+</span>
+              </button>
+
+              <div class="faq-answer">
+                <p>
+                  Yes. Browsing, listing, and messaging are free. re.shelf does
+                  not take commission from student-to-student sales.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>What can I buy or sell on re.shelf?</span>
+                <span class="faq-icon">+</span>
+              </button>
+
+              <div class="faq-answer">
+                <p>
+                  You can buy or sell student-related items such as textbooks,
+                  notes, lab manuals, stationery, calculators, folders, and
+                  other useful academic resources.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>How do I contact a seller?</span>
+                <span class="faq-icon">+</span>
+              </button>
+
+              <div class="faq-answer">
+                <p>
+                  Open the listing you are interested in and use the message
+                  option to contact the seller. You can ask about price,
+                  condition, location, and availability.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>How do payments work?</span>
+                <span class="faq-icon">+</span>
+              </button>
+
+              <div class="faq-answer">
+                <p>
+                  Payments are handled directly between the buyer and seller.
+                  re.shelf does not process payments or hold money for users.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>How do I stay safe during meetups?</span>
+                <span class="faq-icon">+</span>
+              </button>
+
+              <div class="faq-answer">
+                <p>
+                  Meet in public places such as campus areas, libraries, cafés,
+                  or other safe locations. Inspect the item before paying and
+                  avoid sharing sensitive personal information.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>Can I sell handwritten or digital notes?</span>
+                <span class="faq-icon">+</span>
+              </button>
+
+              <div class="faq-answer">
+                <p>
+                  Yes, if the notes are your own work and are useful for other
+                  students. Do not sell copyrighted material that you do not
+                  have permission to share.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>What should I include in a listing?</span>
+                <span class="faq-icon">+</span>
+              </button>
+
+              <div class="faq-answer">
+                <p>
+                  Add a clear title, price, item condition, subject or course,
+                  university, description, and a good photo so buyers can trust
+                  the listing.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>What is a dead listing?</span>
+                <span class="faq-icon">+</span>
+              </button>
+
+              <div class="faq-answer">
+                <p>
+                  A dead listing is an old or inactive listing where the seller
+                  may not be responding. It helps buyers understand that the
+                  item might no longer be available.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>What happens after an item is sold?</span>
+                <span class="faq-icon">+</span>
+              </button>
+
+              <div class="faq-answer">
+                <p>
+                  The seller should mark the listing as sold so other students
+                  know the item is no longer available.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <aside class="faq-side-card">
+            <h2>Need more help?</h2>
+
+            <p>
+              Learn more about re.shelf, how it works, and the basic platform
+              rules.
+            </p>
+
+            <div class="faq-side-links">
+              <a href="about.html">About re.shelf</a>
+              <a href="legal.html">Legal Information</a>
+            </div>
+          </aside>
+        </section>
       </div>
-    </div>
-  </div>
-  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
-    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
-  </footer>
-  <script src="../js/utils.js"></script>
-  <script src="../js/navbar.js"></script>
-</body>
+    </main>
+
+    <footer>
+      &copy; 2025 re.shelf &nbsp;|&nbsp;
+      <a href="about.html">About</a> &nbsp;|&nbsp;
+      <a href="legal.html">Legal</a>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/faq.js"></script>
+  </body>
 </html>

@@ -1,97 +1,387 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings — re.shelf</title>
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <style>
-    .settings-layout { display: grid; grid-template-columns: 200px 1fr; gap: 32px; }
-    .settings-nav a { display: block; padding: 10px 14px; border-radius: var(--radius); font-size: 15px; color: var(--text-muted); margin-bottom: 4px; }
-    .settings-nav a.active, .settings-nav a:hover { background: var(--primary-light); color: var(--primary); }
-    .settings-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px; }
-    .settings-card h2 { font-size: 20px; margin-bottom: 24px; }
-    .section-divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-    @media(max-width:600px){ .settings-layout{ grid-template-columns:1fr; } }
-  </style>
-</head>
-<body>
-  <div id="navbar"></div>
-  <div class="page-content">
-    <div class="container">
-      <div class="settings-layout">
-        <nav class="settings-nav">
-          <a href="#profile" class="active">Public profile</a>
-          <a href="#account">Account</a>
-          <a href="#password">Password</a>
-        </nav>
-        <div>
-          <!-- Public profile section -->
-          <div class="settings-card" id="section-profile">
-            <h2>Public profile</h2>
-            <div class="form-group">
-              <label>Display name</label>
-              <input type="text" id="display-name" placeholder="How others see your name">
-            </div>
-            <div class="form-group">
-              <label>University</label>
-              <select id="university">
-                <option value="">Select university</option>
-                <option>American University of Sharjah</option>
-                <option>University of Sharjah</option>
-                <option>Khalifa University</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>General area / city</label>
-              <input type="text" id="location" placeholder="e.g. Sharjah, Dubai">
-            </div>
-            <div class="form-group">
-              <label>Bio (optional)</label>
-              <textarea id="bio" rows="3" placeholder="A short note for buyers..."></textarea>
-            </div>
-            <button class="btn btn-primary" onclick="saveProfile()">Save profile</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Settings — re.shelf</title>
+
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+  </head>
+
+  <body>
+    <div id="navbar"></div>
+
+    <main class="page-content">
+      <div class="container">
+        <div style="max-width: 900px; margin: 0 auto">
+          <div
+            style="
+              background: var(--white);
+              border-radius: var(--radius);
+              box-shadow: var(--shadow);
+              padding: 32px;
+              margin-bottom: 24px;
+            "
+          >
+            <h1
+              style="color: var(--primary); font-size: 30px; margin-bottom: 8px"
+            >
+              Settings
+            </h1>
+            <p class="text-muted">
+              Manage your profile, account details, password, and marketplace
+              preferences.
+            </p>
           </div>
-          <hr class="section-divider">
-          <!-- Account section -->
-          <div class="settings-card" id="section-account">
-            <h2>Account</h2>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" id="email" placeholder="your@email.com">
-            </div>
-            <button class="btn btn-primary" onclick="saveAccount()">Update email</button>
-          </div>
-          <hr class="section-divider">
-          <!-- Password section -->
-          <div class="settings-card" id="section-password">
-            <h2>Change password</h2>
-            <div class="form-group">
-              <label>Current password</label>
-              <input type="password" id="current-pass">
-            </div>
-            <div class="form-group">
-              <label>New password</label>
-              <input type="password" id="new-pass">
-            </div>
-            <div class="form-group">
-              <label>Confirm new password</label>
-              <input type="password" id="confirm-pass">
-            </div>
-            <button class="btn btn-primary" onclick="changePassword()">Change password</button>
-            <hr class="section-divider">
-            <button class="btn btn-danger" onclick="handleLogout()">Log out</button>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 240px 1fr;
+              gap: 24px;
+              align-items: start;
+            "
+          >
+            <aside
+              style="
+                background: var(--white);
+                border-radius: var(--radius);
+                box-shadow: var(--shadow);
+                padding: 16px;
+                position: sticky;
+                top: 90px;
+              "
+            >
+              <button
+                class="settings-tab active"
+                type="button"
+                data-section="profile-section"
+              >
+                Profile
+              </button>
+
+              <button
+                class="settings-tab"
+                type="button"
+                data-section="account-section"
+              >
+                Account
+              </button>
+
+              <button
+                class="settings-tab"
+                type="button"
+                data-section="password-section"
+              >
+                Password
+              </button>
+
+              <button
+                class="settings-tab"
+                type="button"
+                data-section="preferences-section"
+              >
+                Preferences
+              </button>
+            </aside>
+
+            <section>
+              <div
+                id="settings-message"
+                style="
+                  display: none;
+                  margin-bottom: 18px;
+                  padding: 12px 14px;
+                  border-radius: var(--radius);
+                  font-size: 14px;
+                "
+              ></div>
+
+              <form
+                id="profile-section"
+                class="settings-section"
+                style="
+                  background: var(--white);
+                  border-radius: var(--radius);
+                  box-shadow: var(--shadow);
+                  padding: 28px;
+                "
+              >
+                <h2
+                  style="
+                    color: var(--primary);
+                    font-size: 22px;
+                    margin-bottom: 18px;
+                  "
+                >
+                  Profile Settings
+                </h2>
+
+                <div class="form-group">
+                  <label for="displayName">Display Name</label>
+                  <input
+                    type="text"
+                    id="displayName"
+                    placeholder="Enter your display name"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="university">University</label>
+                  <input
+                    type="text"
+                    id="university"
+                    placeholder="Enter your university"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="major">Major / Course</label>
+                  <input
+                    type="text"
+                    id="major"
+                    placeholder="Example: Computer Science"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="bio">Short Bio</label>
+                  <textarea
+                    id="bio"
+                    rows="4"
+                    placeholder="Tell other students a little about you"
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  Save Profile
+                </button>
+              </form>
+
+              <form
+                id="account-section"
+                class="settings-section"
+                style="
+                  display: none;
+                  background: var(--white);
+                  border-radius: var(--radius);
+                  box-shadow: var(--shadow);
+                  padding: 28px;
+                "
+              >
+                <h2
+                  style="
+                    color: var(--primary);
+                    font-size: 22px;
+                    margin-bottom: 18px;
+                  "
+                >
+                  Account Settings
+                </h2>
+
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    placeholder="Optional phone number"
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  Save Account
+                </button>
+              </form>
+
+              <form
+                id="password-section"
+                class="settings-section"
+                style="
+                  display: none;
+                  background: var(--white);
+                  border-radius: var(--radius);
+                  box-shadow: var(--shadow);
+                  padding: 28px;
+                "
+              >
+                <h2
+                  style="
+                    color: var(--primary);
+                    font-size: 22px;
+                    margin-bottom: 18px;
+                  "
+                >
+                  Change Password
+                </h2>
+
+                <div class="form-group">
+                  <label for="currentPassword">Current Password</label>
+                  <input
+                    type="password"
+                    id="currentPassword"
+                    placeholder="Enter current password"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="newPassword">New Password</label>
+                  <input
+                    type="password"
+                    id="newPassword"
+                    placeholder="Enter new password"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm New Password</label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm new password"
+                  />
+                </div>
+
+                <button
+                  id="togglePasswordBtn"
+                  type="button"
+                  class="btn btn-outline"
+                  style="margin-right: 8px"
+                >
+                  Show Password
+                </button>
+
+                <button type="submit" class="btn btn-primary">
+                  Update Password
+                </button>
+              </form>
+
+              <form
+                id="preferences-section"
+                class="settings-section"
+                style="
+                  display: none;
+                  background: var(--white);
+                  border-radius: var(--radius);
+                  box-shadow: var(--shadow);
+                  padding: 28px;
+                "
+              >
+                <h2
+                  style="
+                    color: var(--primary);
+                    font-size: 22px;
+                    margin-bottom: 18px;
+                  "
+                >
+                  Marketplace Preferences
+                </h2>
+
+                <div class="form-group">
+                  <label for="defaultUniversity"
+                    >Default Search University</label
+                  >
+                  <input
+                    type="text"
+                    id="defaultUniversity"
+                    placeholder="Example: University of Sharjah"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="preferredCategory">Preferred Category</label>
+                  <select id="preferredCategory">
+                    <option value="">Select category</option>
+                    <option value="books">Books</option>
+                    <option value="notes">Notes</option>
+                    <option value="stationery">Stationery</option>
+                    <option value="lab-manuals">Lab Manuals</option>
+                    <option value="other">Other Academic Resources</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="meetupPreference">Meetup Preference</label>
+                  <select id="meetupPreference">
+                    <option value="">Select preference</option>
+                    <option value="campus">Campus meetup</option>
+                    <option value="library">Library meetup</option>
+                    <option value="cafeteria">Cafeteria meetup</option>
+                    <option value="public-place">Public place</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  Save Preferences
+                </button>
+              </form>
+            </section>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
-    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
-  </footer>
-  <script src="../js/utils.js"></script>
-  <script src="../js/navbar.js"></script>
-  <script src="../js/settings.js"></script>
-</body>
+    </main>
+
+    <footer
+      style="
+        text-align: center;
+        padding: 20px;
+        font-size: 13px;
+        color: var(--text-muted);
+        border-top: 1px solid var(--border);
+        background: var(--white);
+      "
+    >
+      &copy; 2025 re.shelf &nbsp;|&nbsp;
+      <a href="faq.html">FAQ</a> &nbsp;|&nbsp;
+      <a href="legal.html">Legal</a>
+    </footer>
+
+    <style>
+      .settings-tab {
+        width: 100%;
+        display: block;
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+        text-align: left;
+        padding: 12px 14px;
+        border-radius: var(--radius);
+        cursor: pointer;
+        font-family: var(--font);
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 6px;
+      }
+
+      .settings-tab:hover,
+      .settings-tab.active {
+        background: var(--primary-light);
+        color: var(--primary);
+      }
+
+      @media (max-width: 760px) {
+        main .container > div > div:nth-child(2) {
+          grid-template-columns: 1fr !important;
+        }
+
+        aside {
+          position: static !important;
+        }
+      }
+    </style>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/settings.js"></script>
+  </body>
 </html>
