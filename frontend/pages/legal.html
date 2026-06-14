@@ -1,46 +1,399 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Legal — re.shelf</title>
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <style>
-    .content-card { max-width: 680px; margin: 0 auto; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 40px; }
-    .content-card h1 { font-size: 28px; margin-bottom: 8px; }
-    .content-card h2 { font-size: 18px; margin: 28px 0 10px; }
-    .content-card p  { color: var(--text-muted); line-height: 1.8; margin-bottom: 12px; font-size: 15px; }
-    .toc { margin-bottom: 28px; }
-    .toc a { display: block; color: var(--primary); font-size: 14px; margin-bottom: 4px; }
-  </style>
-</head>
-<body>
-  <div id="navbar"></div>
-  <div class="page-content">
-    <div class="container">
-      <div class="content-card">
-        <h1>Legal</h1>
-        <div class="toc">
-          <a href="#terms">Terms of use</a>
-          <a href="#privacy">Privacy policy</a>
-        </div>
-        <h2 id="terms">Terms of use</h2>
-        <p>By using re.shelf you agree to use the platform only for lawful purposes and only to list legitimate academic resources.</p>
-        <p>re.shelf is not responsible for any transactions between users. All exchanges happen directly between buyers and sellers.</p>
-        <p>We reserve the right to remove any listing or account that violates these terms.</p>
-        <h2 id="privacy">Privacy policy</h2>
-        <p>We collect the email address and profile information you provide when signing up. This is used only to operate the platform.</p>
-        <p>Your general location (city or area) is displayed publicly on your profile to help buyers and sellers coordinate meetups.</p>
-        <p>We do not sell your data to third parties.</p>
-        <p>Messages between users are stored to provide the messaging feature. We do not read private messages except in cases of reported abuse.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Legal — re.shelf</title>
+
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #eef8ef 0%,
+          #f9f7ef 45%,
+          #ffffff 100%
+        );
+        color: #2c2c2c;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .page-content {
+        padding: 42px 0;
+        min-height: calc(100vh - 140px);
+      }
+
+      .legal-hero {
+        background:
+          linear-gradient(
+            135deg,
+            rgba(58, 125, 68, 0.92),
+            rgba(91, 151, 101, 0.82)
+          ),
+          url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1300&q=80");
+        background-size: cover;
+        background-position: center;
+        border-radius: 28px;
+        padding: 58px 48px;
+        margin-bottom: 30px;
+        box-shadow: 0 16px 35px rgba(58, 125, 68, 0.22);
+        color: #ffffff;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .legal-hero::after {
+        content: "§";
+        position: absolute;
+        right: 36px;
+        top: 4px;
+        font-size: 145px;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.14);
+        line-height: 1;
+      }
+
+      .legal-badge {
+        display: inline-block;
+        background: #ffffff;
+        color: #3a7d44;
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      }
+
+      .legal-hero h1 {
+        font-size: 42px;
+        line-height: 1.15;
+        margin-bottom: 14px;
+        max-width: 760px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .legal-hero p {
+        max-width: 780px;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 17px;
+        line-height: 1.8;
+        position: relative;
+        z-index: 1;
+      }
+
+      .legal-layout {
+        display: grid;
+        grid-template-columns: 1fr 270px;
+        gap: 24px;
+        align-items: start;
+      }
+
+      .legal-content {
+        display: grid;
+        gap: 20px;
+      }
+
+      .legal-card {
+        background: #ffffff;
+        border: 1px solid #e1eadf;
+        border-left: 6px solid #3a7d44;
+        border-radius: 22px;
+        padding: 30px;
+        box-shadow: 0 10px 26px rgba(44, 44, 44, 0.08);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .legal-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 32px rgba(44, 44, 44, 0.11);
+      }
+
+      .legal-card h2 {
+        font-size: 22px;
+        color: #3a7d44;
+        margin-bottom: 12px;
+      }
+
+      .legal-card p {
+        color: #666666;
+        line-height: 1.85;
+        margin-bottom: 12px;
+      }
+
+      .legal-card ul {
+        padding-left: 22px;
+        color: #666666;
+        line-height: 1.85;
+      }
+
+      .legal-card li {
+        margin-bottom: 8px;
+      }
+
+      .legal-sidebar {
+        background: #ffffff;
+        border: 1px solid #e1eadf;
+        border-radius: 22px;
+        padding: 20px;
+        box-shadow: 0 10px 26px rgba(44, 44, 44, 0.08);
+        position: sticky;
+        top: 92px;
+      }
+
+      .legal-sidebar h3 {
+        font-size: 16px;
+        color: #2c2c2c;
+        margin-bottom: 14px;
+      }
+
+      .legal-sidebar a {
+        display: block;
+        color: #666666;
+        font-size: 14px;
+        padding: 11px 12px;
+        border-radius: 12px;
+        transition: 0.2s ease;
+      }
+
+      .legal-sidebar a:hover {
+        background: #e8f5e9;
+        color: #3a7d44;
+        transform: translateX(4px);
+      }
+
+      .legal-footer-box {
+        background: linear-gradient(135deg, #3a7d44, #285f31);
+        color: #ffffff;
+        border-radius: 24px;
+        padding: 34px;
+        text-align: center;
+        box-shadow: 0 16px 35px rgba(58, 125, 68, 0.22);
+      }
+
+      .legal-footer-box h2 {
+        margin-bottom: 10px;
+        font-size: 24px;
+      }
+
+      .legal-footer-box p {
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 680px;
+        margin: 0 auto;
+        line-height: 1.75;
+      }
+
+      footer {
+        text-align: center;
+        padding: 22px;
+        font-size: 13px;
+        color: #777777;
+        border-top: 1px solid #dddddd;
+        background: #ffffff;
+      }
+
+      footer a {
+        color: #3a7d44;
+        font-weight: 600;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 850px) {
+        .legal-hero {
+          padding: 38px 26px;
+        }
+
+        .legal-hero h1 {
+          font-size: 32px;
+        }
+
+        .legal-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .legal-sidebar {
+          position: static;
+          order: -1;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .legal-hero h1 {
+          font-size: 27px;
+        }
+
+        .legal-card {
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="navbar"></div>
+
+    <main class="page-content">
+      <div class="container">
+        <section class="legal-hero">
+          <span class="legal-badge">Legal Information</span>
+
+          <h1>Keeping re.shelf simple, safe, and student-friendly.</h1>
+
+          <p>
+            re.shelf is a student marketplace where students can buy and sell
+            books, stationery, notes, lab manuals, and other academic resources.
+            This page explains the basic rules for using the platform
+            responsibly.
+          </p>
+        </section>
+
+        <section class="legal-layout">
+          <div class="legal-content">
+            <article class="legal-card" id="terms">
+              <h2>Terms of Use</h2>
+              <p>
+                By using re.shelf, you agree to use the platform respectfully
+                and responsibly. re.shelf is designed to help students connect
+                with other students to buy, sell, or exchange academic items.
+              </p>
+              <p>
+                Users should provide honest information in their listings and
+                communicate clearly with buyers or sellers.
+              </p>
+            </article>
+
+            <article class="legal-card" id="marketplace">
+              <h2>Marketplace Rules</h2>
+              <ul>
+                <li>
+                  Only list student-related items such as books, notes,
+                  stationery, lab manuals, and academic resources.
+                </li>
+                <li>
+                  Do not post fake, misleading, offensive, or unrelated
+                  listings.
+                </li>
+                <li>Do not spam other users or misuse the messaging system.</li>
+                <li>
+                  Agree on the price, condition, and meetup details clearly
+                  before exchanging items.
+                </li>
+              </ul>
+            </article>
+
+            <article class="legal-card" id="listings">
+              <h2>Listings & Content</h2>
+              <p>
+                Sellers are responsible for the accuracy of their listings,
+                including item title, description, price, images, condition,
+                university, and subject details.
+              </p>
+              <p>
+                re.shelf may remove listings that appear inappropriate,
+                misleading, duplicated, unrelated to students, or against the
+                purpose of the platform.
+              </p>
+            </article>
+
+            <article class="legal-card" id="safety">
+              <h2>Safety & Meetups</h2>
+              <p>
+                re.shelf helps students connect, but users are responsible for
+                arranging safe exchanges. Meet in public and familiar places
+                such as campus areas, libraries, cafeterias, or other safe
+                locations.
+              </p>
+              <ul>
+                <li>
+                  Do not share sensitive personal information unnecessarily.
+                </li>
+                <li>Inspect items before paying.</li>
+                <li>Use clear communication before meeting.</li>
+                <li>Cancel or avoid suspicious interactions.</li>
+              </ul>
+            </article>
+
+            <article class="legal-card" id="privacy">
+              <h2>Privacy</h2>
+              <p>
+                re.shelf may use basic account and listing information to
+                operate the marketplace, display listings, support messaging,
+                and improve the user experience.
+              </p>
+              <p>
+                Users should avoid posting private information directly inside
+                listing descriptions, images, or public areas of the website.
+              </p>
+            </article>
+
+            <article class="legal-card" id="responsibility">
+              <h2>User Responsibility</h2>
+              <p>
+                re.shelf provides a platform for student-to-student connections.
+                It does not own the listed items and is not directly responsible
+                for the quality, price, condition, or final exchange between
+                users.
+              </p>
+            </article>
+
+            <section class="legal-footer-box">
+              <h2>Built for student trust</h2>
+              <p>
+                The goal of re.shelf is to make academic resources easier to
+                reuse, resell, and find while keeping the experience simple,
+                respectful, and student-focused.
+              </p>
+            </section>
+          </div>
+
+          <aside class="legal-sidebar">
+            <h3>On this page</h3>
+            <a href="#terms">Terms of Use</a>
+            <a href="#marketplace">Marketplace Rules</a>
+            <a href="#listings">Listings & Content</a>
+            <a href="#safety">Safety & Meetups</a>
+            <a href="#privacy">Privacy</a>
+            <a href="#responsibility">User Responsibility</a>
+          </aside>
+        </section>
       </div>
-    </div>
-  </div>
-  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
-    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a>
-  </footer>
-  <script src="../js/utils.js"></script>
-  <script src="../js/navbar.js"></script>
-</body>
+    </main>
+
+    <footer>
+      &copy; 2025 re.shelf &nbsp;|&nbsp;
+      <a href="faq.html">FAQ</a> &nbsp;|&nbsp;
+      <a href="about.html">About</a>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/navbar.js"></script>
+  </body>
 </html>
