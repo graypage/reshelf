@@ -1,66 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My interests — re.shelf</title>
+<!-- Declares the document type as HTML5 -->
 
+<html lang="en">
+<!-- Root HTML element, language set to English -->
+
+<head>
+  <!-- Contains metadata, styles, and page configuration -->
+
+  <meta charset="UTF-8">
+  <!-- Uses UTF-8 character encoding for broad character support -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Makes the page responsive on mobile devices -->
+
+  <title>My interests — re.shelf</title>
+  <!-- Text displayed in the browser tab -->
+
+  <!-- Global styles used throughout the website -->
   <link rel="stylesheet" href="../css/global.css">
+
+  <!-- Styles for the navigation bar -->
   <link rel="stylesheet" href="../css/navbar.css">
+
+  <!-- Styles for reusable listing cards -->
   <link rel="stylesheet" href="../css/listing-card.css">
 
   <style>
+    /* Header section at the top of the page */
     .page-header {
-      margin-bottom: 24px;
+      margin-bottom: 24px; /* Space below the header */
     }
 
+    /* Main page title */
     .page-header h1 {
-      font-size: 24px;
+      font-size: 24px; /* Larger font size for emphasis */
     }
 
+    /* Subtitle/description below the title */
     .page-header p {
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-top: 4px;
+      color: var(--text-muted); /* Muted text color */
+      font-size: 14px; /* Smaller font size */
+      margin-top: 4px; /* Small gap above paragraph */
     }
 
+    /* Styling shown when there are no interests */
     .empty-state {
-      text-align: center;
-      padding: 60px 0;
-      color: var(--text-muted);
+      text-align: center; /* Center-align text */
+      padding: 60px 0; /* Vertical spacing */
+      color: var(--text-muted); /* Muted text color */
     }
   </style>
 </head>
 
 <body>
+  <!-- Placeholder where navbar.js will inject the navigation bar -->
   <div id="navbar"></div>
 
+  <!-- Main page content wrapper -->
   <div class="page-content">
+
+    <!-- Centers content and limits page width -->
     <div class="container">
 
+      <!-- Page heading section -->
       <div class="page-header">
+
+        <!-- Main page title -->
         <h1>My interests</h1>
+
+        <!-- Description of what this page shows -->
         <p>Listings you've marked as interested or messaged a seller about.</p>
+
       </div>
 
+      <!-- Grid that will hold interested listings -->
       <div class="listings-grid" id="interests-grid">
+
+        <!-- Message displayed when there are no saved interests -->
         <div class="empty-state">
           No interests yet.
         </div>
+
       </div>
 
     </div>
   </div>
 
-  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
+  <!-- Website footer -->
+  <footer
+    style="
+      text-align:center;
+      padding:20px;
+      font-size:13px;
+      color:var(--text-muted);
+      border-top:1px solid var(--border);
+      background:var(--white);
+    ">
+
+    <!-- Copyright notice -->
     &copy; 2025 re.shelf
+
+    <!-- Footer navigation links -->
     &nbsp;|&nbsp;<a href="about.html">About</a>
     &nbsp;|&nbsp;<a href="faq.html">FAQ</a>
     &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+
   </footer>
 
+  <!-- Utility/helper functions used across the website -->
   <script src="../js/utils.js"></script>
+
+  <!-- Navigation bar functionality -->
   <script src="../js/navbar.js"></script>
+
+  <!-- JavaScript for loading and managing user interests -->
   <script src="../js/interests.js"></script>
+
 </body>
 </html>

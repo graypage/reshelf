@@ -1,110 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile — re.shelf</title>
+<!-- Declares the document as HTML5 -->
 
+<html lang="en">
+<!-- Root HTML element, language set to English -->
+
+<head>
+  <!-- Metadata and resources for the page -->
+
+  <meta charset="UTF-8">
+  <!-- Supports most characters and symbols -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Makes the page responsive on mobile devices -->
+
+  <title>Profile — re.shelf</title>
+  <!-- Browser tab title -->
+
+  <!-- External stylesheet for global site styles -->
   <link rel="stylesheet" href="../css/global.css">
+
+  <!-- External stylesheet for navigation bar styling -->
   <link rel="stylesheet" href="../css/navbar.css">
+
+  <!-- External stylesheet for listing card components -->
   <link rel="stylesheet" href="../css/listing-card.css">
 
   <style>
+    /* Profile header container */
     .profile-header {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 28px;
-      margin-bottom: 28px;
-      display: flex;
-      gap: 24px;
-      align-items: center;
+      background: var(--white); /* White background */
+      border-radius: var(--radius); /* Rounded corners */
+      box-shadow: var(--shadow); /* Card shadow */
+      padding: 28px; /* Inner spacing */
+      margin-bottom: 28px; /* Space below header */
+      display: flex; /* Horizontal layout */
+      gap: 24px; /* Space between avatar and info */
+      align-items: center; /* Vertically center content */
     }
 
+    /* User avatar circle */
     .avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: var(--primary-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      color: var(--primary);
-      font-weight: 700;
-      flex-shrink: 0;
+      width: 72px; /* Avatar width */
+      height: 72px; /* Avatar height */
+      border-radius: 50%; /* Perfect circle */
+      background: var(--primary-light); /* Light theme color */
+      display: flex; /* Flex layout */
+      align-items: center; /* Center vertically */
+      justify-content: center; /* Center horizontally */
+      font-size: 28px; /* Initial letter size */
+      color: var(--primary); /* Text color */
+      font-weight: 700; /* Bold text */
+      flex-shrink: 0; /* Prevent shrinking */
     }
 
+    /* User name styling */
     .profile-info h2 {
-      font-size: 22px;
-      margin-bottom: 4px;
+      font-size: 22px; /* Large heading */
+      margin-bottom: 4px; /* Small spacing below */
     }
 
+    /* Metadata row styling */
     .profile-meta {
-      font-size: 14px;
-      color: var(--text-muted);
+      font-size: 14px; /* Smaller text */
+      color: var(--text-muted); /* Muted color */
     }
 
+    /* Individual metadata items */
     .profile-meta span {
-      margin-right: 16px;
+      margin-right: 16px; /* Space between items */
     }
 
+    /* Section heading styling */
     .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 16px;
+      font-size: 18px; /* Heading size */
+      font-weight: 600; /* Semi-bold */
+      margin-bottom: 16px; /* Space below */
     }
 
+    /* Empty state message */
     .empty-state {
-      text-align: center;
-      padding: 60px 0;
-      color: var(--text-muted);
+      text-align: center; /* Center text */
+      padding: 60px 0; /* Vertical spacing */
+      color: var(--text-muted); /* Muted color */
     }
   </style>
 </head>
 
 <body>
+  <!-- Placeholder where navbar.js injects the navigation bar -->
   <div id="navbar"></div>
 
+  <!-- Main page wrapper -->
   <div class="page-content">
+
+    <!-- Centers content and limits width -->
     <div class="container">
 
+      <!-- Profile information card -->
       <div class="profile-header">
+
+        <!-- User avatar displaying first letter or icon -->
         <div class="avatar" id="profile-avatar">?</div>
 
+        <!-- Profile details section -->
         <div class="profile-info">
+
+          <!-- User name populated by JavaScript -->
           <h2 id="profile-name">User</h2>
 
+          <!-- User metadata row -->
           <div class="profile-meta">
+
+            <!-- University name -->
             <span id="profile-uni"></span>
+
+            <!-- User location -->
             <span id="profile-location"></span>
+
+            <!-- Join date -->
             <span id="profile-joined"></span>
+
           </div>
 
-          <div id="profile-bio" style="margin-top:8px;font-size:14px;"></div>
+          <!-- User bio populated dynamically -->
+          <div
+            id="profile-bio"
+            style="margin-top:8px;font-size:14px;">
+          </div>
+
         </div>
       </div>
 
+      <!-- Listings section heading -->
       <div class="section-title">Active listings</div>
 
+      <!-- Grid where listing cards will be inserted -->
       <div class="listings-grid" id="profile-listings">
+
+        <!-- Shown when user has no listings -->
         <div class="empty-state">
           No listings yet.
         </div>
+
       </div>
 
     </div>
   </div>
 
-  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
+  <!-- Site footer -->
+  <footer
+    style="
+      text-align:center;
+      padding:20px;
+      font-size:13px;
+      color:var(--text-muted);
+      border-top:1px solid var(--border);
+      background:var(--white);
+    ">
+
+    <!-- Copyright notice -->
     &copy; 2025 re.shelf
+
+    <!-- Footer navigation links -->
     &nbsp;|&nbsp;<a href="about.html">About</a>
     &nbsp;|&nbsp;<a href="faq.html">FAQ</a>
     &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+
   </footer>
 
+  <!-- Utility/helper functions -->
   <script src="../js/utils.js"></script>
+
+  <!-- Navigation bar functionality -->
   <script src="../js/navbar.js"></script>
+
+  <!-- Profile page logic and data loading -->
   <script src="../js/profile.js"></script>
+
 </body>
 </html>
