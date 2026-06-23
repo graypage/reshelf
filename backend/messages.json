@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "fromUserId": 999,
+    "toUserId": 1,
+    "text": "Welcome to re.shelf! Your inbox is now connected to the backend.",
+    "timestamp": "2026-06-15T10:00:00.000Z",
+    "listingId": null,
+    "listingTitle": "System Message"
+  }
+]
