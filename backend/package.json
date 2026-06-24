@@ -1,0 +1,12 @@
+{
+  "name": "reshelf-backend",
+  "version": "1.0.0",
+  "description": "Simple backend for settings page using JSON storage",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

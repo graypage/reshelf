@@ -1,0 +1,17 @@
+{
+  "profile": {
+    "displayName": "zeshaan anwar",
+    "university": "UOWD",
+    "major": "Computer Science",
+    "bio": "blah bla bla.............."
+  },
+  "account": {
+    "email": "zxcv@gmail.com",
+    "phone": "0987654321"
+  },
+  "preferences": {
+    "defaultUniversity": "UOWD",
+    "preferredCategory": "books",
+    "meetupPreference": "cafeteria"
+  }
+}
