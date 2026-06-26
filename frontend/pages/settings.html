@@ -1,21 +1,31 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Basic page setup -->
     <meta charset="UTF-8" />
+
+    <!-- Makes the settings page responsive on mobile and desktop screens -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Title shown in the browser tab -->
     <title>Settings — re.shelf</title>
 
+    <!-- Shared global website styles -->
     <link rel="stylesheet" href="../css/global.css" />
+
+    <!-- Shared navbar styles -->
     <link rel="stylesheet" href="../css/navbar.css" />
   </head>
 
   <body>
+    <!-- Navbar is loaded here using navbar.js -->
     <div id="navbar"></div>
 
     <main class="page-content">
       <div class="container">
+        <!-- Main wrapper keeps the settings page centered -->
         <div style="max-width: 900px; margin: 0 auto">
+          <!-- Page heading card -->
           <div
             style="
               background: var(--white);
@@ -30,12 +40,15 @@
             >
               Settings
             </h1>
+
+            <!-- Short description explaining the purpose of the page -->
             <p class="text-muted">
               Manage your profile, account details, password, and marketplace
               preferences.
             </p>
           </div>
 
+          <!-- Two-column layout: tabs on the left and forms on the right -->
           <div
             style="
               display: grid;
@@ -44,6 +57,7 @@
               align-items: start;
             "
           >
+            <!-- Sidebar tabs used to switch between settings sections -->
             <aside
               style="
                 background: var(--white);
@@ -54,6 +68,7 @@
                 top: 90px;
               "
             >
+              <!-- data-section connects this tab to the profile form below -->
               <button
                 class="settings-tab active"
                 type="button"
@@ -62,6 +77,7 @@
                 Profile
               </button>
 
+              <!-- Opens the account settings form -->
               <button
                 class="settings-tab"
                 type="button"
@@ -70,6 +86,7 @@
                 Account
               </button>
 
+              <!-- Opens the password form -->
               <button
                 class="settings-tab"
                 type="button"
@@ -78,6 +95,7 @@
                 Password
               </button>
 
+              <!-- Opens the marketplace preferences form -->
               <button
                 class="settings-tab"
                 type="button"
@@ -88,6 +106,7 @@
             </aside>
 
             <section>
+              <!-- Message box used by settings.js to show success/error messages -->
               <div
                 id="settings-message"
                 style="
@@ -99,6 +118,7 @@
                 "
               ></div>
 
+              <!-- Profile settings form -->
               <form
                 id="profile-section"
                 class="settings-section"
@@ -119,6 +139,7 @@
                   Profile Settings
                 </h2>
 
+                <!-- User display name shown on the platform -->
                 <div class="form-group">
                   <label for="displayName">Display Name</label>
                   <input
@@ -128,6 +149,7 @@
                   />
                 </div>
 
+                <!-- User's university name -->
                 <div class="form-group">
                   <label for="university">University</label>
                   <input
@@ -137,6 +159,7 @@
                   />
                 </div>
 
+                <!-- Course or major information -->
                 <div class="form-group">
                   <label for="major">Major / Course</label>
                   <input
@@ -146,6 +169,7 @@
                   />
                 </div>
 
+                <!-- Short user description -->
                 <div class="form-group">
                   <label for="bio">Short Bio</label>
                   <textarea
@@ -155,11 +179,13 @@
                   ></textarea>
                 </div>
 
+                <!-- Submit button handled by settings.js -->
                 <button type="submit" class="btn btn-primary">
                   Save Profile
                 </button>
               </form>
 
+              <!-- Account settings form, hidden until the Account tab is selected -->
               <form
                 id="account-section"
                 class="settings-section"
@@ -181,6 +207,7 @@
                   Account Settings
                 </h2>
 
+                <!-- Email field uses type=email for basic browser validation -->
                 <div class="form-group">
                   <label for="email">Email Address</label>
                   <input
@@ -190,6 +217,7 @@
                   />
                 </div>
 
+                <!-- Optional contact number -->
                 <div class="form-group">
                   <label for="phone">Phone Number</label>
                   <input
@@ -204,6 +232,7 @@
                 </button>
               </form>
 
+              <!-- Password settings form, hidden by default -->
               <form
                 id="password-section"
                 class="settings-section"
@@ -225,6 +254,7 @@
                   Change Password
                 </h2>
 
+                <!-- Current password input -->
                 <div class="form-group">
                   <label for="currentPassword">Current Password</label>
                   <input
@@ -234,6 +264,7 @@
                   />
                 </div>
 
+                <!-- New password input -->
                 <div class="form-group">
                   <label for="newPassword">New Password</label>
                   <input
@@ -243,6 +274,7 @@
                   />
                 </div>
 
+                <!-- Used to confirm that the new password was typed correctly -->
                 <div class="form-group">
                   <label for="confirmPassword">Confirm New Password</label>
                   <input
@@ -252,6 +284,7 @@
                   />
                 </div>
 
+                <!-- Button changes password fields between hidden and visible -->
                 <button
                   id="togglePasswordBtn"
                   type="button"
@@ -266,6 +299,7 @@
                 </button>
               </form>
 
+              <!-- Marketplace preferences form, hidden by default -->
               <form
                 id="preferences-section"
                 class="settings-section"
@@ -287,10 +321,11 @@
                   Marketplace Preferences
                 </h2>
 
+                <!-- Default university used when searching listings -->
                 <div class="form-group">
-                  <label for="defaultUniversity"
-                    >Default Search University</label
-                  >
+                  <label for="defaultUniversity">
+                    Default Search University
+                  </label>
                   <input
                     type="text"
                     id="defaultUniversity"
@@ -298,6 +333,7 @@
                   />
                 </div>
 
+                <!-- Preferred listing category selected by the user -->
                 <div class="form-group">
                   <label for="preferredCategory">Preferred Category</label>
                   <select id="preferredCategory">
@@ -310,6 +346,7 @@
                   </select>
                 </div>
 
+                <!-- Preferred location type for exchanging items -->
                 <div class="form-group">
                   <label for="meetupPreference">Meetup Preference</label>
                   <select id="meetupPreference">
@@ -331,6 +368,7 @@
       </div>
     </main>
 
+    <!-- Footer with links to related pages -->
     <footer
       style="
         text-align: center;
@@ -347,6 +385,7 @@
     </footer>
 
     <style>
+      /* Sidebar tab button styling */
       .settings-tab {
         width: 100%;
         display: block;
@@ -363,25 +402,32 @@
         margin-bottom: 6px;
       }
 
+      /* Active and hover state for selected tab */
       .settings-tab:hover,
       .settings-tab.active {
         background: var(--primary-light);
         color: var(--primary);
       }
 
+      /* Responsive layout for smaller screens */
       @media (max-width: 760px) {
+        /* Changes the settings layout from two columns to one column */
         main .container > div > div:nth-child(2) {
           grid-template-columns: 1fr !important;
         }
 
+        /* Sidebar no longer sticks on mobile */
         aside {
           position: static !important;
         }
       }
     </style>
 
+    <!-- Shared utility and navbar scripts -->
     <script src="../js/utils.js"></script>
     <script src="../js/navbar.js"></script>
+
+    <!-- JavaScript that handles tab switching, validation, and backend saving -->
     <script src="../js/settings.js"></script>
   </body>
 </html>
