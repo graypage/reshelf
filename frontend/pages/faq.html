@@ -1,21 +1,32 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Defines the document type and language for the page -->
     <meta charset="UTF-8" />
+
+    <!-- Makes the page scale properly on mobile and desktop screens -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Title shown in the browser tab -->
     <title>FAQ — re.shelf</title>
 
+    <!-- Main shared website styling -->
     <link rel="stylesheet" href="../css/global.css" />
+
+    <!-- Shared navigation bar styling -->
     <link rel="stylesheet" href="../css/navbar.css" />
+
+    <!-- FAQ-specific styling for accordion layout and side card -->
     <link rel="stylesheet" href="../css/faq.css" />
   </head>
 
   <body>
+    <!-- Navbar placeholder; navbar.js loads the shared navbar into this div -->
     <div id="navbar"></div>
 
     <main class="page-content">
       <div class="container">
+        <!-- Top hero section introducing the FAQ page -->
         <section class="faq-hero">
           <span class="faq-badge">Help Center</span>
 
@@ -27,14 +38,19 @@
           </p>
         </section>
 
+        <!-- Main FAQ layout: question list on the left and help card on the right -->
         <section class="faq-layout">
           <div class="faq-list">
+            <!-- FAQ item 1: basic platform cost question -->
             <div class="faq-item">
               <button class="faq-question" type="button">
                 <span>Is re.shelf free to use?</span>
+
+                <!-- Icon changes when the FAQ item is opened or closed -->
                 <span class="faq-icon">+</span>
               </button>
 
+              <!-- Hidden answer section controlled by faq.js -->
               <div class="faq-answer">
                 <p>
                   Yes. Browsing, listing, and messaging are free. re.shelf does
@@ -43,6 +59,7 @@
               </div>
             </div>
 
+            <!-- FAQ item 2: explains allowed marketplace items -->
             <div class="faq-item">
               <button class="faq-question" type="button">
                 <span>What can I buy or sell on re.shelf?</span>
@@ -58,6 +75,7 @@
               </div>
             </div>
 
+            <!-- FAQ item 3: explains seller contact process -->
             <div class="faq-item">
               <button class="faq-question" type="button">
                 <span>How do I contact a seller?</span>
@@ -73,6 +91,7 @@
               </div>
             </div>
 
+            <!-- FAQ item 4: explains that payments happen outside the platform -->
             <div class="faq-item">
               <button class="faq-question" type="button">
                 <span>How do payments work?</span>
@@ -87,6 +106,7 @@
               </div>
             </div>
 
+            <!-- FAQ item 5: safety advice for student meetups -->
             <div class="faq-item">
               <button class="faq-question" type="button">
                 <span>How do I stay safe during meetups?</span>
@@ -102,6 +122,7 @@
               </div>
             </div>
 
+            <!-- FAQ item 6: rules about selling notes -->
             <div class="faq-item">
               <button class="faq-question" type="button">
                 <span>Can I sell handwritten or digital notes?</span>
@@ -117,6 +138,7 @@
               </div>
             </div>
 
+            <!-- FAQ item 7: gives guidance for creating clear listings -->
             <div class="faq-item">
               <button class="faq-question" type="button">
                 <span>What should I include in a listing?</span>
@@ -132,6 +154,7 @@
               </div>
             </div>
 
+            <!-- FAQ item 8: explains dead/inactive listings -->
             <div class="faq-item">
               <button class="faq-question" type="button">
                 <span>What is a dead listing?</span>
@@ -147,6 +170,7 @@
               </div>
             </div>
 
+            <!-- FAQ item 9: explains what seller should do after selling -->
             <div class="faq-item">
               <button class="faq-question" type="button">
                 <span>What happens after an item is sold?</span>
@@ -162,6 +186,7 @@
             </div>
           </div>
 
+          <!-- Side card with links to related support pages -->
           <aside class="faq-side-card">
             <h2>Need more help?</h2>
 
@@ -170,6 +195,7 @@
               rules.
             </p>
 
+            <!-- Quick links to other information pages -->
             <div class="faq-side-links">
               <a href="about.html">About re.shelf</a>
               <a href="legal.html">Legal Information</a>
@@ -179,14 +205,20 @@
       </div>
     </main>
 
+    <!-- Footer with links to related pages -->
     <footer>
       &copy; 2025 re.shelf &nbsp;|&nbsp;
       <a href="about.html">About</a> &nbsp;|&nbsp;
       <a href="legal.html">Legal</a>
     </footer>
 
+    <!-- Utility script used across the website -->
     <script src="../js/utils.js"></script>
+
+    <!-- Loads the shared navigation bar -->
     <script src="../js/navbar.js"></script>
+
+    <!-- Adds accordion open/close behaviour to FAQ items -->
     <script src="../js/faq.js"></script>
   </body>
 </html>

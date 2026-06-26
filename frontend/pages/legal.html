@@ -1,51 +1,70 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Defines the character encoding for the page -->
     <meta charset="UTF-8" />
+
+    <!-- Makes the page responsive on mobile, tablet, and desktop screens -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Page title shown in the browser tab -->
     <title>Legal — re.shelf</title>
 
+    <!-- Global styles shared across the whole website -->
     <link rel="stylesheet" href="../css/global.css" />
+
+    <!-- Navbar styles used by the shared navigation bar -->
     <link rel="stylesheet" href="../css/navbar.css" />
 
     <style>
+      /* Removes default margin and padding from all elements */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
 
+      /* Main body styling for the legal page */
       body {
         font-family: "Segoe UI", sans-serif;
+
+        /* Soft green and white gradient to match the website theme */
         background: linear-gradient(
           135deg,
           #eef8ef 0%,
           #f9f7ef 45%,
           #ffffff 100%
         );
+
         color: #2c2c2c;
         font-size: 16px;
         line-height: 1.6;
       }
 
+      /* Removes underline from links and keeps their inherited color */
       a {
         text-decoration: none;
         color: inherit;
       }
 
+      /* Centers the content and limits the maximum page width */
       .container {
         max-width: 1100px;
         margin: 0 auto;
         padding: 0 20px;
       }
 
+      /* Main spacing around the legal content */
       .page-content {
         padding: 42px 0;
+
+        /* Keeps footer lower on shorter pages */
         min-height: calc(100vh - 140px);
       }
 
+      /* Top hero/banner section for the legal page */
       .legal-hero {
+        /* Dark green overlay placed above the background image */
         background:
           linear-gradient(
             135deg,
@@ -53,17 +72,22 @@
             rgba(91, 151, 101, 0.82)
           ),
           url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1300&q=80");
+
         background-size: cover;
         background-position: center;
         border-radius: 28px;
         padding: 58px 48px;
         margin-bottom: 30px;
+
+        /* Adds depth to the hero section */
         box-shadow: 0 16px 35px rgba(58, 125, 68, 0.22);
+
         color: #ffffff;
         position: relative;
         overflow: hidden;
       }
 
+      /* Decorative legal symbol shown in the background of the hero */
       .legal-hero::after {
         content: "§";
         position: absolute;
@@ -71,10 +95,13 @@
         top: 4px;
         font-size: 145px;
         font-weight: 800;
+
+        /* Low opacity makes the symbol decorative instead of distracting */
         color: rgba(255, 255, 255, 0.14);
         line-height: 1;
       }
 
+      /* Small label above the main hero title */
       .legal-badge {
         display: inline-block;
         background: #ffffff;
@@ -87,24 +114,31 @@
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
       }
 
+      /* Main heading inside the hero section */
       .legal-hero h1 {
         font-size: 42px;
         line-height: 1.15;
         margin-bottom: 14px;
         max-width: 760px;
+
+        /* Keeps text above the decorative background symbol */
         position: relative;
         z-index: 1;
       }
 
+      /* Intro paragraph inside the hero section */
       .legal-hero p {
         max-width: 780px;
         color: rgba(255, 255, 255, 0.92);
         font-size: 17px;
         line-height: 1.8;
+
+        /* Keeps paragraph visible above the decorative symbol */
         position: relative;
         z-index: 1;
       }
 
+      /* Main page layout: content on the left, sidebar on the right */
       .legal-layout {
         display: grid;
         grid-template-columns: 1fr 270px;
@@ -112,81 +146,104 @@
         align-items: start;
       }
 
+      /* Creates spacing between each legal card */
       .legal-content {
         display: grid;
         gap: 20px;
       }
 
+      /* Card design for each legal topic */
       .legal-card {
         background: #ffffff;
         border: 1px solid #e1eadf;
+
+        /* Green left border highlights each section */
         border-left: 6px solid #3a7d44;
+
         border-radius: 22px;
         padding: 30px;
+
+        /* Subtle shadow makes cards stand out from the background */
         box-shadow: 0 10px 26px rgba(44, 44, 44, 0.08);
+
+        /* Smooth animation for hover effect */
         transition:
           transform 0.2s ease,
           box-shadow 0.2s ease;
       }
 
+      /* Slight lift effect when hovering over legal cards */
       .legal-card:hover {
         transform: translateY(-3px);
         box-shadow: 0 16px 32px rgba(44, 44, 44, 0.11);
       }
 
+      /* Section heading inside each card */
       .legal-card h2 {
         font-size: 22px;
         color: #3a7d44;
         margin-bottom: 12px;
       }
 
+      /* Paragraph text inside the legal cards */
       .legal-card p {
         color: #666666;
         line-height: 1.85;
         margin-bottom: 12px;
       }
 
+      /* List styling for rule-based legal sections */
       .legal-card ul {
         padding-left: 22px;
         color: #666666;
         line-height: 1.85;
       }
 
+      /* Adds spacing between bullet points */
       .legal-card li {
         margin-bottom: 8px;
       }
 
+      /* Sidebar that contains quick links to legal sections */
       .legal-sidebar {
         background: #ffffff;
         border: 1px solid #e1eadf;
         border-radius: 22px;
         padding: 20px;
         box-shadow: 0 10px 26px rgba(44, 44, 44, 0.08);
+
+        /* Keeps sidebar visible while scrolling on large screens */
         position: sticky;
         top: 92px;
       }
 
+      /* Sidebar title */
       .legal-sidebar h3 {
         font-size: 16px;
         color: #2c2c2c;
         margin-bottom: 14px;
       }
 
+      /* Individual sidebar navigation links */
       .legal-sidebar a {
         display: block;
         color: #666666;
         font-size: 14px;
         padding: 11px 12px;
         border-radius: 12px;
+
+        /* Smooth transition for hover styling */
         transition: 0.2s ease;
       }
 
+      /* Hover effect for sidebar links */
       .legal-sidebar a:hover {
         background: #e8f5e9;
         color: #3a7d44;
         transform: translateX(4px);
       }
 
+      /* Final trust message section at the bottom */
       .legal-footer-box {
         background: linear-gradient(135deg, #3a7d44, #285f31);
         color: #ffffff;
@@ -196,11 +253,13 @@
         box-shadow: 0 16px 35px rgba(58, 125, 68, 0.22);
       }
 
+      /* Heading inside the bottom message box */
       .legal-footer-box h2 {
         margin-bottom: 10px;
         font-size: 24px;
       }
 
+      /* Paragraph inside the bottom message box */
       .legal-footer-box p {
         color: rgba(255, 255, 255, 0.9);
         max-width: 680px;
@@ -208,6 +267,7 @@
         line-height: 1.75;
       }
 
+      /* Footer area shown at the bottom of the page */
       footer {
         text-align: center;
         padding: 22px;
@@ -217,6 +277,7 @@
         background: #ffffff;
       }
 
+      /* Footer link styling */
       footer a {
         color: #3a7d44;
         font-weight: 600;
@@ -226,6 +287,7 @@
         text-decoration: underline;
       }
 
+      /* Tablet and small laptop layout adjustments */
       @media (max-width: 850px) {
         .legal-hero {
           padding: 38px 26px;
@@ -235,16 +297,19 @@
           font-size: 32px;
         }
 
+        /* Converts the two-column layout into one column */
         .legal-layout {
           grid-template-columns: 1fr;
         }
 
+        /* Sidebar becomes normal content on smaller screens */
         .legal-sidebar {
           position: static;
           order: -1;
         }
       }
 
+      /* Mobile layout adjustments */
       @media (max-width: 520px) {
         .legal-hero h1 {
           font-size: 27px;
@@ -258,10 +323,12 @@
   </head>
 
   <body>
+    <!-- Empty navbar container; navbar.js loads the shared navbar here -->
     <div id="navbar"></div>
 
     <main class="page-content">
       <div class="container">
+        <!-- Hero section gives users a quick overview of the legal page -->
         <section class="legal-hero">
           <span class="legal-badge">Legal Information</span>
 
@@ -275,8 +342,10 @@
           </p>
         </section>
 
+        <!-- Main legal layout contains the information cards and sidebar links -->
         <section class="legal-layout">
           <div class="legal-content">
+            <!-- Terms section explains the basic user agreement -->
             <article class="legal-card" id="terms">
               <h2>Terms of Use</h2>
               <p>
@@ -290,6 +359,7 @@
               </p>
             </article>
 
+            <!-- Marketplace rules describe what users can and cannot do -->
             <article class="legal-card" id="marketplace">
               <h2>Marketplace Rules</h2>
               <ul>
@@ -309,6 +379,7 @@
               </ul>
             </article>
 
+            <!-- Listings section explains seller responsibility -->
             <article class="legal-card" id="listings">
               <h2>Listings & Content</h2>
               <p>
@@ -323,6 +394,7 @@
               </p>
             </article>
 
+            <!-- Safety section gives users advice for item exchange meetups -->
             <article class="legal-card" id="safety">
               <h2>Safety & Meetups</h2>
               <p>
@@ -341,6 +413,7 @@
               </ul>
             </article>
 
+            <!-- Privacy section explains how users should handle personal data -->
             <article class="legal-card" id="privacy">
               <h2>Privacy</h2>
               <p>
@@ -354,6 +427,7 @@
               </p>
             </article>
 
+            <!-- Responsibility section clarifies the platform's role -->
             <article class="legal-card" id="responsibility">
               <h2>User Responsibility</h2>
               <p>
@@ -364,6 +438,7 @@
               </p>
             </article>
 
+            <!-- Closing message reinforces the purpose of the platform -->
             <section class="legal-footer-box">
               <h2>Built for student trust</h2>
               <p>
@@ -374,8 +449,11 @@
             </section>
           </div>
 
+          <!-- Sidebar provides quick jump links to each section above -->
           <aside class="legal-sidebar">
             <h3>On this page</h3>
+
+            <!-- These links use the id attributes from each article -->
             <a href="#terms">Terms of Use</a>
             <a href="#marketplace">Marketplace Rules</a>
             <a href="#listings">Listings & Content</a>
@@ -387,12 +465,14 @@
       </div>
     </main>
 
+    <!-- Simple footer navigation to related pages -->
     <footer>
       &copy; 2025 re.shelf &nbsp;|&nbsp;
       <a href="faq.html">FAQ</a> &nbsp;|&nbsp;
       <a href="about.html">About</a>
     </footer>
 
+    <!-- Utility script and shared navbar script -->
     <script src="../js/utils.js"></script>
     <script src="../js/navbar.js"></script>
   </body>
