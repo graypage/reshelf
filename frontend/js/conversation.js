@@ -37,12 +37,57 @@ async function loadConversation() {
   const { otherUser, messages } = res;
   document.getElementById('convo-with').textContent = otherUser.name || 'Unknown User';
   
+  // Added by antigravity to populate listing title and view listing link dynamically
+  const listingTitleParam = getQueryParam('listingTitle');
+  const listingIdParam = getQueryParam('listingId');
+  
+  // Prioritize URL parameters if the user just clicked "Message seller" from a specific listing
+  let activeListingTitle = listingTitleParam;
+  let activeListingId = listingIdParam;
+  
+  // If not in URL (e.g., opened from Inbox), get it from the MOST RECENT message
+  if (!activeListingTitle) {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].listingTitle) {
+        activeListingTitle = messages[i].listingTitle;
+        activeListingId = messages[i].listingId;
+        break;
+      }
+    }
+  }
+
+  const infoEl = document.querySelector('.convo-listing-info');
+  const viewListingLink = document.getElementById('view-listing-link');
+
+  if (activeListingTitle) {
+    document.getElementById('convo-listing').textContent = activeListingTitle;
+    if (infoEl) infoEl.style.display = 'block';
+  } else {
+    if (infoEl) infoEl.style.display = 'none';
+  }
+
+  if (activeListingId && viewListingLink) {
+    viewListingLink.href = `listing.html?id=${activeListingId}`;
+    viewListingLink.style.display = 'inline';
+  } else if (viewListingLink) {
+    viewListingLink.style.display = 'none';
+  }
+
   const area = document.getElementById('messages-area');
   
   // To prevent scrolling issues during polling, only auto-scroll if we are already at the bottom
   // or if it's the first load
   const isScrolledToBottom = area.scrollHeight - area.clientHeight <= area.scrollTop + 50;
   const isFirstLoad = area.innerHTML.trim() === '';
+
+  // Added by antigravity to prefill the message input if we came from a specific listing
+  const listingTitle = getQueryParam('listingTitle');
+  if (messages.length === 0 && listingTitle && isFirstLoad) {
+    const input = document.getElementById('message-input');
+    if (input && !input.value) {
+      input.value = `Hi, I'm interested in your listing "${listingTitle}".`;
+    }
+  }
 
   if (messages.length === 0) {
     area.innerHTML = `<div class="empty-state">No messages yet. Send a message to start!</div>`;
@@ -82,12 +127,18 @@ async function sendMessage() {
   const user = getCurrentUser();
   input.value = '';
 
+  // Added by antigravity to pass listing info with the message
+  const listingId = getQueryParam('listingId');
+  const listingTitle = getQueryParam('listingTitle');
+
   const res = await apiFetch('/messages', {
     method: 'POST',
     headers: { 'X-User-Email': user.email },
     body: JSON.stringify({
       toUserId: currentOtherId,
-      text: text
+      text: text,
+      listingId: listingId || null,
+      listingTitle: listingTitle || null
     })
   });
 
