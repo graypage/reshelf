@@ -1,0 +1,28 @@
+{
+  "profile": {
+    "displayName": "zeshaan anwar",
+    "university": "UOWD",
+    "major": "Computer Science",
+    "bio": "blah bla bla.............."
+  },
+  "account": {
+    "email": "zxcv@gmail.com",
+    "phone": "0987654321"
+  },
+  "preferences": {
+    "defaultUniversity": "UOWD",
+    "preferredCategory": "books",
+    "meetupPreference": "cafeteria"
+  }
+}
+//The settings.json file is used as the storage file for the Settings page.
+//  It is divided into three main sections: profile, account, and preferences.
+// The profile section stores the user’s display name, university, major, and bio.
+// The account section stores contact details such as email and phone number.
+// The preferences section stores marketplace choices such as the default university, preferred category, and meetup preference.
+
+//When the user saves data from the Settings page,
+// the frontend sends the information to the Node.js backend using fetch().
+// The backend then updates this JSON file.
+// When the Settings page is opened again, the backend reads the JSON file
+// and sends the saved data back to the frontend so the form fields can be filled automatically.

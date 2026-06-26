@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "backend",
   "version": "1.0.0",
   "description": "",
@@ -17,3 +18,16 @@
     "express": "^5.2.1"
   }
 }
+=======
+  "name": "reshelf-backend",
+  "version": "1.0.0",
+  "description": "Simple backend for settings page using JSON storage",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
+>>>>>>> zeshaan_backend
