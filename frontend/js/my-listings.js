@@ -1,127 +1,93 @@
-// ─────────────────────────────────────────────────────
-// my-listings.js
-// ─────────────────────────────────────────────────────
+// ── my-listings.js ──────────────────────────────────────────
 
-const userEmail = localStorage.getItem("userEmail");
+requireAuth();
 
-if (!userEmail) {
-    window.location.href = "login.html";
-}
+document.addEventListener('DOMContentLoaded', () => {
+  loadListings();
+});
 
-// Switch between Active and Old tabs
+// Switch between tabs
 function switchTab(tab) {
 
-    document.querySelectorAll(".tab").forEach(t =>
-        t.classList.remove("active")
-    );
+  document.querySelectorAll('.tab').forEach(t =>
+    t.classList.remove('active')
+  );
 
-    document.querySelectorAll(".tab-panel").forEach(panel =>
-        panel.classList.remove("active")
-    );
+  document.querySelectorAll('.tab-panel').forEach(panel =>
+    panel.classList.remove('active')
+  );
 
-    if (tab === "active") {
-        document.querySelectorAll(".tab")[0].classList.add("active");
-        document.getElementById("tab-active").classList.add("active");
-    }
-    else {
-        document.querySelectorAll(".tab")[1].classList.add("active");
-        document.getElementById("tab-old").classList.add("active");
-    }
+  if (tab === 'active') {
+    document.querySelectorAll('.tab')[0].classList.add('active');
+    document.getElementById('tab-active').classList.add('active');
+  } else {
+    document.querySelectorAll('.tab')[1].classList.add('active');
+    document.getElementById('tab-old').classList.add('active');
+  }
 
 }
 
-// Make switchTab available to HTML
+// Make function available to HTML
 window.switchTab = switchTab;
 
-// ----------------------------
-// Load Listings
-// ----------------------------
-
+// Load listings from backend
 async function loadListings() {
 
-    try {
+  const data = await apiFetch('/my-listings');
 
-        const response = await fetch(
-            "http://localhost:3000/api/my-listings",
-            {
-                headers: {
-                    "x-user-email": userEmail
-                }
-            }
-        );
+  if (!data) {
+    alert('Unable to load listings.');
+    return;
+  }
 
-        if (!response.ok)
-            throw new Error("Failed to load listings.");
+  displayListings(
+    data.active,
+    document.getElementById('active-listings'),
+    'No active listings.'
+  );
 
-        const data = await response.json();
-
-        displayListings(
-            data.active,
-            document.getElementById("active-listings"),
-            "No active listings."
-        );
-
-        displayListings(
-            data.old,
-            document.getElementById("old-listings"),
-            "No old listings."
-        );
-
-    }
-    catch (err) {
-
-        console.error(err);
-
-    }
+  displayListings(
+    data.old,
+    document.getElementById('old-listings'),
+    'No old/sold listings.'
+  );
 
 }
 
-// ----------------------------
-
+// Display listings inside a grid
 function displayListings(listings, container, emptyMessage) {
 
-    if (listings.length === 0) {
+  if (!listings || listings.length === 0) {
 
-        container.innerHTML =
-            `<div class="empty-state">${emptyMessage}</div>`;
+    container.innerHTML = `
+      <div class="empty-state">
+        ${emptyMessage}
+      </div>
+    `;
 
-        return;
+    return;
+  }
 
-    }
+  container.innerHTML = '';
 
-    container.innerHTML = "";
+  listings.forEach(listing => {
 
-    listings.forEach(listing => {
+    container.innerHTML += `
+      <div class="listing-card">
 
-        container.innerHTML += `
+        <img src="${listing.image}" alt="${listing.title}">
 
-            <div class="listing-card">
+        <div class="listing-content">
 
-                <img
-                    src="${listing.image}"
-                    alt="${listing.title}"
-                >
+          <h3>${listing.title}</h3>
 
-                <div class="listing-content">
+          <p>${formatPrice(listing.price)}</p>
 
-                    <h3>${listing.title}</h3>
+        </div>
 
-                    <p>$${listing.price}</p>
+      </div>
+    `;
 
-                </div>
-
-            </div>
-
-        `;
-
-    });
+  });
 
 }
-
-// ----------------------------
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    loadListings();
-
-});

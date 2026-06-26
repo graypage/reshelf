@@ -1,89 +1,49 @@
-// ─────────────────────────────────────────────────────
-// interests.js
-// ─────────────────────────────────────────────────────
+// ── interests.js ──────────────────────────────────────────
 
-const userEmail = localStorage.getItem("userEmail");
+requireAuth();
 
-if (!userEmail) {
-    window.location.href = "login.html";
-}
+document.addEventListener('DOMContentLoaded', () => {
+  loadInterests();
+});
 
-// ----------------------------
-// Load Interested Listings
-// ----------------------------
-
+// Load the logged-in user's interested listings
 async function loadInterests() {
 
-    try {
+  const listings = await apiFetch('/interests');
 
-        const response = await fetch(
-            "http://localhost:3000/api/interests",
-            {
-                headers: {
-                    "x-user-email": userEmail
-                }
-            }
-        );
+  const grid = document.getElementById('interests-grid');
 
-        if (!response.ok)
-            throw new Error("Failed to load interests.");
+  if (!listings || listings.length === 0) {
 
-        const listings = await response.json();
+    grid.innerHTML = `
+      <div class="empty-state">
+        No interests yet.
+      </div>
+    `;
 
-        const grid = document.getElementById("interests-grid");
+    return;
+  }
 
-        if (listings.length === 0) {
+  grid.innerHTML = '';
 
-            grid.innerHTML =
-                '<div class="empty-state">No interests yet.</div>';
+  listings.forEach(listing => {
 
-            return;
+    grid.innerHTML += `
+      <div class="listing-card">
 
-        }
+        <img src="${listing.image}" alt="${listing.title}">
 
-        grid.innerHTML = "";
+        <div class="listing-content">
 
-        listings.forEach(listing => {
+          <h3>${listing.title}</h3>
 
-            grid.innerHTML += `
+          <p>${formatPrice(listing.price)}</p>
 
-                <div class="listing-card">
+        </div>
 
-                    <img
-                        src="${listing.image}"
-                        alt="${listing.title}"
-                    >
+      </div>
+    `;
 
-                    <div class="listing-content">
-
-                        <h3>${listing.title}</h3>
-
-                        <p>$${listing.price}</p>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-    }
-    catch (err) {
-
-        console.error(err);
-
-        document.getElementById("interests-grid").innerHTML =
-            '<div class="empty-state">Failed to load interests.</div>';
-
-    }
+  });
 
 }
-
-// ----------------------------
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    loadInterests();
-
-});

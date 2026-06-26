@@ -1,129 +1,80 @@
-// Gets the logged in user's email.
-// Your login page should store this after login.
-const userEmail = localStorage.getItem("userEmail");
+// ── profile.js ──────────────────────────────────────────
 
-if (!userEmail) {
-    window.location.href = "login.html";
-}
+requireAuth();
 
-// ----------------------------
-// Load Profile Information
-// ----------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  loadProfile();
+  loadListings();
+});
 
+// Load the logged-in user's profile
 async function loadProfile() {
 
-    try {
+  const user = await apiFetch('/profile');
 
-        const response = await fetch("http://localhost:3000/api/profile", {
-            headers: {
-                "x-user-email": userEmail
-            }
-        });
+  if (!user) {
+    alert('Unable to load profile.');
+    return;
+  }
 
-        if (!response.ok)
-            throw new Error("Unable to load profile.");
+  document.getElementById('profile-avatar').textContent =
+    user.name.charAt(0).toUpperCase();
 
-        const user = await response.json();
+  document.getElementById('profile-name').textContent =
+    user.name;
 
-        document.getElementById("profile-avatar").textContent =
-            user.name.charAt(0).toUpperCase();
+  document.getElementById('profile-uni').textContent =
+    user.university || '';
 
-        document.getElementById("profile-name").textContent =
-            user.name;
+  document.getElementById('profile-location').textContent =
+    user.location || '';
 
-        document.getElementById("profile-uni").textContent =
-            user.university || "";
+  document.getElementById('profile-joined').textContent =
+    user.joined ? `Joined ${user.joined}` : '';
 
-        document.getElementById("profile-location").textContent =
-            user.location || "";
-
-        document.getElementById("profile-joined").textContent =
-            user.joined
-                ? `Joined ${user.joined}`
-                : "";
-
-        document.getElementById("profile-bio").textContent =
-            user.bio || "";
-
-    }
-    catch (err) {
-
-        console.error(err);
-
-        alert("Failed to load profile.");
-
-    }
+  document.getElementById('profile-bio').textContent =
+    user.bio || '';
 
 }
 
-// ----------------------------
-// Load Active Listings
-// ----------------------------
-
+// Load the user's active listings
 async function loadListings() {
 
-    try {
+  const listings = await apiFetch('/profile/listings');
 
-        const response = await fetch(
-            "http://localhost:3000/api/profile/listings",
-            {
-                headers: {
-                    "x-user-email": userEmail
-                }
-            }
-        );
+  const grid = document.getElementById('profile-listings');
 
-        if (!response.ok)
-            throw new Error();
+  if (!listings || listings.length === 0) {
 
-        const listings = await response.json();
+    grid.innerHTML = `
+      <div class="empty-state">
+        No listings yet.
+      </div>
+    `;
 
-        const grid = document.getElementById("profile-listings");
+    return;
+  }
 
-        if (listings.length === 0) {
+  grid.innerHTML = '';
 
-            grid.innerHTML =
-                '<div class="empty-state">No listings yet.</div>';
+  listings.forEach(listing => {
 
-            return;
-        }
+    grid.innerHTML += `
+      <div class="listing-card">
 
-        grid.innerHTML = "";
+        <img src="${listing.image}" alt="${listing.title}">
 
-        listings.forEach(listing => {
+        <div class="listing-content">
 
-            grid.innerHTML += `
-                <div class="listing-card">
+          <h3>${listing.title}</h3>
 
-                    <img
-                        src="${listing.image}"
-                        alt="${listing.title}"
-                    >
+          <p>${formatPrice(listing.price)}</p>
 
-                    <div class="listing-content">
+        </div>
 
-                        <h3>${listing.title}</h3>
+      </div>
+    `;
 
-                        <p>$${listing.price}</p>
-
-                    </div>
-
-                </div>
-            `;
-
-        });
-
-    }
-    catch (err) {
-
-        console.error(err);
-
-    }
+  });
 
 }
-
-// ----------------------------
-
-loadProfile();
-
-loadListings();

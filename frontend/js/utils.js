@@ -25,12 +25,20 @@ function requireAuth() {
 // ── API fetch wrapper ─────────────────────────────────────
 async function apiFetch(endpoint, options = {}) {
   try {
+
+    const currentUser = getCurrentUser();
+
     const res = await fetch(API_BASE + endpoint, {
-      headers: { 'Content-Type': 'application/json' },
-      ...options
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(currentUser && { 'x-user-email': currentUser.email }),
+        ...(options.headers || {})
+      }
     });
-    const data = await res.json();
-    return data;
+
+    return await res.json();
+
   } catch (err) {
     console.error('apiFetch error:', err);
     return null;
