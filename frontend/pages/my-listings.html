@@ -1,53 +1,193 @@
 <!DOCTYPE html>
+<!-- Declares the document type as HTML5 -->
+
 <html lang="en">
+<!-- Root HTML element with English language specified -->
+
 <head>
+  <!-- Contains metadata, stylesheets, and page settings -->
+
   <meta charset="UTF-8">
+  <!-- Enables UTF-8 character encoding -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Makes the page responsive on mobile devices -->
+
   <title>My listings — re.shelf</title>
+  <!-- Text displayed in the browser tab -->
+
+  <!-- Global styles shared across the website -->
   <link rel="stylesheet" href="../css/global.css">
+
+  <!-- Navigation bar styling -->
   <link rel="stylesheet" href="../css/navbar.css">
+
+  <!-- Listing card component styling -->
   <link rel="stylesheet" href="../css/listing-card.css">
+
   <style>
-    .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    .page-header h1 { font-size: 24px; }
-    .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 28px; }
-    .tab { padding: 10px 24px; cursor: pointer; font-size: 15px; color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -2px; }
-    .tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-    .empty-state { text-align: center; padding: 60px 0; color: var(--text-muted); }
+    /* Header containing page title and button */
+    .page-header {
+      display: flex; /* Horizontal layout */
+      justify-content: space-between; /* Push title and button apart */
+      align-items: center; /* Vertically align items */
+      margin-bottom: 24px; /* Space below header */
+    }
+
+    /* Main page heading */
+    .page-header h1 {
+      font-size: 24px; /* Large heading text */
+    }
+
+    /* Container for tab buttons */
+    .tabs {
+      display: flex; /* Horizontal tab layout */
+      gap: 0; /* No spacing between tabs */
+      border-bottom: 2px solid var(--border); /* Bottom border */
+      margin-bottom: 28px; /* Space below tabs */
+    }
+
+    /* Individual tab styling */
+    .tab {
+      padding: 10px 24px; /* Internal spacing */
+      cursor: pointer; /* Show pointer cursor on hover */
+      font-size: 15px; /* Tab text size */
+      color: var(--text-muted); /* Muted text color */
+      border-bottom: 2px solid transparent; /* Hidden border initially */
+      margin-bottom: -2px; /* Align border with container */
+    }
+
+    /* Active tab styling */
+    .tab.active {
+      color: var(--primary); /* Highlighted text color */
+      border-bottom-color: var(--primary); /* Visible active border */
+      font-weight: 600; /* Semi-bold text */
+    }
+
+    /* Hidden tab content by default */
+    .tab-panel {
+      display: none;
+    }
+
+    /* Show currently active tab content */
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Empty state message styling */
+    .empty-state {
+      text-align: center; /* Center text */
+      padding: 60px 0; /* Vertical spacing */
+      color: var(--text-muted); /* Muted text color */
+    }
   </style>
 </head>
+
 <body>
+
+  <!-- Placeholder where navbar.js injects the navigation bar -->
   <div id="navbar"></div>
+
+  <!-- Main page content wrapper -->
   <div class="page-content">
+
+    <!-- Content container for width control and alignment -->
     <div class="container">
+
+      <!-- Page title and create listing button -->
       <div class="page-header">
+
+        <!-- Main page title -->
         <h1>My listings</h1>
-        <a href="create-listing.html" class="btn btn-primary">+ New listing</a>
-      </div>
-      <div class="tabs">
-        <div class="tab active" onclick="switchTab('active')">Active</div>
-        <div class="tab" onclick="switchTab('old')">Old / Sold</div>
-      </div>
-      <div class="tab-panel active" id="tab-active">
-        <div class="listings-grid" id="active-listings">
-          <div class="empty-state">Loading listings...</div>
-        </div>
+
+        <!-- Button linking to the listing creation page -->
+        <a href="create-listing.html" class="btn btn-primary">
+          + New listing
+        </a>
+
       </div>
 
-      <div class="tab-panel" id="tab-old">
-        <div class="listings-grid" id="old-listings">
-          <div class="empty-state">Loading listings...</div>
+      <!-- Tab navigation -->
+      <div class="tabs">
+
+        <!-- Active listings tab (selected by default) -->
+        <div
+          class="tab active"
+          onclick="switchTab('active')">
+          Active
         </div>
+
+        <!-- Old/Sold listings tab -->
+        <div
+          class="tab"
+          onclick="switchTab('old')">
+          Old / Sold
+        </div>
+
       </div>
+
+      <!-- Active listings content panel -->
+      <div class="tab-panel active" id="tab-active">
+
+        <!-- Grid where active listings are loaded -->
+        <div class="listings-grid" id="active-listings">
+
+          <!-- Temporary loading message -->
+          <div class="empty-state">
+            Loading listings...
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Old/Sold listings content panel -->
+      <div class="tab-panel" id="tab-old">
+
+        <!-- Grid where old/sold listings are loaded -->
+        <div class="listings-grid" id="old-listings">
+
+          <!-- Temporary loading message -->
+          <div class="empty-state">
+            Loading listings...
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
   </div>
-  <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
-    &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+
+  <!-- Website footer -->
+  <footer
+    style="
+      text-align:center;
+      padding:20px;
+      font-size:13px;
+      color:var(--text-muted);
+      border-top:1px solid var(--border);
+      background:var(--white);
+    ">
+
+    <!-- Copyright notice -->
+    &copy; 2025 re.shelf
+
+    <!-- Footer navigation links -->
+    &nbsp;|&nbsp;<a href="about.html">About</a>
+    &nbsp;|&nbsp;<a href="faq.html">FAQ</a>
+    &nbsp;|&nbsp;<a href="legal.html">Legal</a>
+
   </footer>
+
+  <!-- Utility/helper functions -->
   <script src="../js/utils.js"></script>
+
+  <!-- Navigation bar functionality -->
   <script src="../js/navbar.js"></script>
+
+  <!-- Page logic for loading listings and switching tabs -->
   <script src="../js/my-listings.js"></script>
+
 </body>
 </html>

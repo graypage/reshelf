@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "ashwin",
+    "email": "kumawat.exe@gmail.com",
+    "password": "$2b$10$P0bjT7uLD/xX6nhQlzLmiualA5fpQs3kM/9X0phoN4hxb5BiTen.a"
+  },
+  {
+    "id": 2,
+    "name": "test",
+    "email": "test@test.com",
+    "password": "$2b$10$bd1/LUziQBKXvgJsfVkpPeRPB73kXdjtUtLShHJTs8gNPdqOetUeG"
+  }
+]
