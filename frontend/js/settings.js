@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("confirmPassword"),
   ];
 
+  // This is the backend API route created in backend/server.js
+  const API_BASE = "http://localhost:3000/api/settings";
+
   togglePasswordBtn.addEventListener("click", () => {
     const isHidden = passwordInputs[0].type === "password";
 
@@ -27,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       : "Show Password";
   });
 
+  // Load saved settings from backend when the page opens
   loadSavedSettings();
 
   tabs.forEach((tab) => {
@@ -45,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  profileForm.addEventListener("submit", (event) => {
+  profileForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const profileData = {
@@ -55,11 +59,26 @@ document.addEventListener("DOMContentLoaded", () => {
       bio: document.getElementById("bio").value.trim(),
     };
 
-    localStorage.setItem("reshelfProfileSettings", JSON.stringify(profileData));
-    showMessage("Profile settings saved successfully.", "success");
+    try {
+      const response = await fetch(`${API_BASE}/profile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(profileData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Profile settings could not be saved");
+      }
+
+      showMessage("Profile settings saved successfully.", "success");
+    } catch (err) {
+      showMessage("Error saving profile settings.", "error");
+    }
   });
 
-  accountForm.addEventListener("submit", (event) => {
+  accountForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const email = document.getElementById("email").value.trim();
@@ -75,8 +94,23 @@ document.addEventListener("DOMContentLoaded", () => {
       phone,
     };
 
-    localStorage.setItem("reshelfAccountSettings", JSON.stringify(accountData));
-    showMessage("Account settings saved successfully.", "success");
+    try {
+      const response = await fetch(`${API_BASE}/account`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(accountData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Account settings could not be saved");
+      }
+
+      showMessage("Account settings saved successfully.", "success");
+    } catch (err) {
+      showMessage("Error saving account settings.", "error");
+    }
   });
 
   passwordForm.addEventListener("submit", (event) => {
@@ -112,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showMessage("Password updated successfully for this demo.", "success");
   });
 
-  preferencesForm.addEventListener("submit", (event) => {
+  preferencesForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const preferencesData = {
@@ -123,36 +157,58 @@ document.addEventListener("DOMContentLoaded", () => {
       meetupPreference: document.getElementById("meetupPreference").value,
     };
 
-    localStorage.setItem(
-      "reshelfMarketplacePreferences",
-      JSON.stringify(preferencesData),
-    );
-    showMessage("Marketplace preferences saved successfully.", "success");
+    try {
+      const response = await fetch(`${API_BASE}/preferences`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(preferencesData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Preferences could not be saved");
+      }
+
+      showMessage("Marketplace preferences saved successfully.", "success");
+    } catch (err) {
+      showMessage("Error saving marketplace preferences.", "error");
+    }
   });
 
-  function loadSavedSettings() {
-    const savedProfile =
-      JSON.parse(localStorage.getItem("reshelfProfileSettings")) || {};
-    const savedAccount =
-      JSON.parse(localStorage.getItem("reshelfAccountSettings")) || {};
-    const savedPreferences =
-      JSON.parse(localStorage.getItem("reshelfMarketplacePreferences")) || {};
+  async function loadSavedSettings() {
+    try {
+      const savedProfile = await fetch(`${API_BASE}/profile`).then((res) =>
+        res.json(),
+      );
 
-    document.getElementById("displayName").value =
-      savedProfile.displayName || "";
-    document.getElementById("university").value = savedProfile.university || "";
-    document.getElementById("major").value = savedProfile.major || "";
-    document.getElementById("bio").value = savedProfile.bio || "";
+      const savedAccount = await fetch(`${API_BASE}/account`).then((res) =>
+        res.json(),
+      );
 
-    document.getElementById("email").value = savedAccount.email || "";
-    document.getElementById("phone").value = savedAccount.phone || "";
+      const savedPreferences = await fetch(`${API_BASE}/preferences`).then(
+        (res) => res.json(),
+      );
 
-    document.getElementById("defaultUniversity").value =
-      savedPreferences.defaultUniversity || "";
-    document.getElementById("preferredCategory").value =
-      savedPreferences.preferredCategory || "";
-    document.getElementById("meetupPreference").value =
-      savedPreferences.meetupPreference || "";
+      document.getElementById("displayName").value =
+        savedProfile.displayName || "";
+      document.getElementById("university").value =
+        savedProfile.university || "";
+      document.getElementById("major").value = savedProfile.major || "";
+      document.getElementById("bio").value = savedProfile.bio || "";
+
+      document.getElementById("email").value = savedAccount.email || "";
+      document.getElementById("phone").value = savedAccount.phone || "";
+
+      document.getElementById("defaultUniversity").value =
+        savedPreferences.defaultUniversity || "";
+      document.getElementById("preferredCategory").value =
+        savedPreferences.preferredCategory || "";
+      document.getElementById("meetupPreference").value =
+        savedPreferences.meetupPreference || "";
+    } catch (err) {
+      console.error("Could not load saved settings:", err);
+    }
   }
 
   function showMessage(message, type) {
