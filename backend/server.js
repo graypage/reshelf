@@ -13,6 +13,8 @@ app.use(express.json());
 
 const dbPath = path.join(__dirname, 'users.json');
 const messagesPath = path.join(__dirname, 'messages.json');
+const listingsPath = path.join(__dirname, 'listings.json');
+const interestsPath = path.join(__dirname, 'interests.json');
 
 // Helper to initialize and read DB
 async function readDB() {
@@ -51,7 +53,38 @@ async function readMessages() {
 async function writeMessages(data) {
   await fs.writeFile(messagesPath, JSON.stringify(data, null, 2));
 }
+async function readListings() {
+  try {
+    const data = await fs.readFile(listingsPath, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      await fs.writeFile(listingsPath, '[]');
+      return [];
+    }
+    throw err;
+  }
+}
 
+async function writeListings(data) {
+  await fs.writeFile(listingsPath, JSON.stringify(data, null, 2));
+}
+async function readInterests() {
+  try {
+    const data = await fs.readFile(interestsPath, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      await fs.writeFile(interestsPath, '[]');
+      return [];
+    }
+    throw err;
+  }
+}
+
+async function writeInterests(data) {
+  await fs.writeFile(interestsPath, JSON.stringify(data, null, 2));
+}
 // Signup Route
 app.post('/api/auth/signup', async (req, res) => {
   const { name, email, password } = req.body;
@@ -205,9 +238,179 @@ app.post('/api/messages', requireAuthHeader, async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+app.get('/api/profile', requireAuthHeader, async (req, res) => {
+  try {
+
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email,
+      university: req.user.university || '',
+      location: req.user.location || '',
+      bio: req.user.bio || '',
+      joined: req.user.joined || ''
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+app.get('/api/profile/listings', requireAuthHeader, async (req, res) => {
+  try {
+
+    const listings = await readListings();
+
+    const myListings = listings.filter(
+      listing =>
+        listing.sellerId === req.user.id &&
+        listing.status === 'active'
+    );
+
+    res.json(myListings);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+app.get('/api/my-listings', requireAuthHeader, async (req, res) => {
+  try {
+
+    const listings = await readListings();
+
+    const myListings = listings.filter(
+      listing => listing.sellerId === req.user.id
+    );
+
+    const active = myListings.filter(
+      listing => listing.status === 'active'
+    );
+
+    const old = myListings.filter(
+      listing => listing.status !== 'active'
+    );
+
+    res.json({
+      active,
+      old
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+app.get('/api/interests', requireAuthHeader, async (req, res) => {
+  try {
+
+    const interests = await readInterests();
+    const listings = await readListings();
+
+    const myInterests = interests.filter(
+      interest => interest.userId === req.user.id
+    );
+
+    const interestedListings = myInterests
+      .map(interest =>
+        listings.find(
+          listing => listing.id === interest.listingId
+        )
+      )
+      .filter(Boolean);
+
+    res.json(interestedListings);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+app.post('/api/interests', requireAuthHeader, async (req, res) => {
+  try {
+
+    const { listingId } = req.body;
+
+    if (!listingId) {
+      return res.status(400).json({
+        error: 'listingId required'
+      });
+    }
+
+    const interests = await readInterests();
+
+    const exists = interests.find(
+      interest =>
+        interest.userId === req.user.id &&
+        interest.listingId === Number(listingId)
+    );
+
+    if (exists) {
+      return res.status(400).json({
+        error: 'Already interested'
+      });
+    }
+
+    const newInterest = {
+      id:
+        interests.length > 0
+          ? Math.max(...interests.map(i => i.id)) + 1
+          : 1,
+      userId: req.user.id,
+      listingId: Number(listingId),
+      dateAdded: new Date().toISOString()
+    };
+
+    interests.push(newInterest);
+
+    await writeInterests(interests);
+
+    res.status(201).json(newInterest);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Server error'
+    });
+  }
+});
+app.delete('/api/interests/:listingId', requireAuthHeader, async (req, res) => {
+  try {
+
+    const listingId = Number(req.params.listingId);
+
+    let interests = await readInterests();
+
+    interests = interests.filter(
+      interest =>
+        !(
+          interest.userId === req.user.id &&
+          interest.listingId === listingId
+        )
+    );
+
+    await writeInterests(interests);
+
+    res.json({
+      message: 'Interest removed'
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Server error'
+    });
+  }
+});
+
 
 // Start checking DB and listen
-Promise.all([readDB(), readMessages()]).then(() => {
+Promise.all([
+  readDB(),
+  readMessages(),
+  readListings(),
+  readInterests()
+]).then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
