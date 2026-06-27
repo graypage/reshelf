@@ -7,5 +7,23 @@
     "timestamp": "2026-06-15T10:00:00.000Z",
     "listingId": null,
     "listingTitle": "System Message"
+  },
+  {
+    "id": 2,
+    "fromUserId": 3,
+    "toUserId": 2,
+    "text": "hi",
+    "timestamp": "2026-06-27T09:07:44.875Z",
+    "listingId": 14,
+    "listingTitle": "Linear Algebra and Its Applications"
+  },
+  {
+    "id": 3,
+    "fromUserId": 2,
+    "toUserId": 3,
+    "text": "hi",
+    "timestamp": "2026-06-27T09:08:28.916Z",
+    "listingId": null,
+    "listingTitle": null
   }
 ]

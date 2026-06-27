@@ -185,7 +185,7 @@ app.get('/api/listings/:id', async (req, res) => {
 // ── Listings: Create ─────────────────────────────────────────
 app.post('/api/listings', requireAuth, async (req, res) => {
   try {
-    const { title, author, isbn, university, subject, type, condition, price, description } = req.body;
+    const { title, author, isbn, university, subject, type, condition, price, description, image } = req.body;
     if (!title || !price) return res.status(400).json({ error: 'Title and price are required' });
 
     const listings = await readListings();
@@ -203,7 +203,7 @@ app.post('/api/listings', requireAuth, async (req, res) => {
       condition: condition || 'Good',
       price: parseFloat(price),
       description: (description || '').trim(),
-      image: null,
+      image: image || null,
       status: 'active',
       createdAt: new Date().toISOString()
     };
@@ -226,7 +226,7 @@ app.put('/api/listings/:id', requireAuth, async (req, res) => {
     if (listings[idx].sellerId !== req.user.id)
       return res.status(403).json({ error: 'Forbidden' });
 
-    const { title, author, isbn, university, subject, type, condition, price, description } = req.body;
+    const { title, author, isbn, university, subject, type, condition, price, description, image } = req.body;
     listings[idx] = {
       ...listings[idx],
       title: title || listings[idx].title,
@@ -237,7 +237,8 @@ app.put('/api/listings/:id', requireAuth, async (req, res) => {
       type: type || listings[idx].type,
       condition: condition || listings[idx].condition,
       price: price !== undefined ? parseFloat(price) : listings[idx].price,
-      description: description !== undefined ? description.trim() : listings[idx].description
+      description: description !== undefined ? description.trim() : listings[idx].description,
+      image: 'image' in req.body ? (image || null) : listings[idx].image
     };
 
     await writeListings(listings);
