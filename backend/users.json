@@ -7,13 +7,15 @@
   },
   {
     "id": 2,
-    "name": "test",
+    "name": "jay",
     "email": "test@test.com",
-    "password": "$2b$10$shIEKPk/f13sMCmVPECyNO391JULKhnsPJMH4eLEYUjasfYZcVv2G"
+    "password": "$2b$10$shIEKPk/f13sMCmVPECyNO391JULKhnsPJMH4eLEYUjasfYZcVv2G",
+    "university": "",
+    "bio": ""
   },
   {
     "id": 3,
-    "name": "test1",
+    "name": "zeshaan",
     "email": "test1@gmail.com",
     "password": "$2b$10$AdmOSKyt97Dw.uMEefPgdeCYnQxkBPSLFcME7hSSyKlu/HnTT/mtS",
     "university": "",
@@ -23,7 +25,7 @@
   },
   {
     "id": 4,
-    "name": "test2",
+    "name": "zaid",
     "email": "test2@gmail.com",
     "password": "$2b$10$9kEMQePUPtXhpAwlcm0gSuZQxfYNE5jL9DBs2eavS9YQ8l0RKIAb6",
     "university": "",
