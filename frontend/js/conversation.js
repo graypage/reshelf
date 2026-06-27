@@ -3,6 +3,8 @@ let pollInterval = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   requireAuth();
+  if (!getCurrentUser()) return; // requireAuth() is redirecting to auth.html — stop here
+
   currentOtherId = getQueryParam('id');
   if (currentOtherId) {
     loadConversation();
@@ -25,9 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadConversation() {
   const user = getCurrentUser();
-  const res = await apiFetch(`/messages/${currentOtherId}`, {
-    headers: { 'X-User-Email': user.email }
-  });
+  if (!user) return;
+
+  const res = await apiFetch(`/messages/${currentOtherId}`);
 
   if (!res || res.error) {
     document.getElementById('messages-area').innerHTML = `<div class="empty-state">Error loading conversation.</div>`;
@@ -36,6 +38,9 @@ async function loadConversation() {
 
   const { otherUser, messages } = res;
   document.getElementById('convo-with').textContent = otherUser.name || 'Unknown User';
+
+  // Mark this conversation as "read" now — clears the unread dot in the inbox
+  setLastRead(currentOtherId);
   
   // Added by antigravity to populate listing title and view listing link dynamically
   const listingTitleParam = getQueryParam('listingTitle');
@@ -105,7 +110,7 @@ async function loadConversation() {
     html += `
       <div class="message ${typeClass}">
         <div>
-          <div class="message-bubble">${msg.text}</div>
+          <div class="message-bubble">${escapeHtml(msg.text)}</div>
           <div class="message-time">${timeStr}</div>
         </div>
       </div>
@@ -133,7 +138,6 @@ async function sendMessage() {
 
   const res = await apiFetch('/messages', {
     method: 'POST',
-    headers: { 'X-User-Email': user.email },
     body: JSON.stringify({
       toUserId: currentOtherId,
       text: text,

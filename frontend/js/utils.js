@@ -61,3 +61,37 @@ function timeAgo(dateString) {
 function getQueryParam(key) {
   return new URLSearchParams(window.location.search).get(key);
 }
+
+// ── Basic HTML escaping for any user-generated text inserted via innerHTML ──
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// ── Inbox read-state tracking ────────────────────────────────
+// The backend has no concept of "read" messages, so we track it client-side:
+// every time a conversation is opened, we stamp "now" against that user's id.
+// The inbox then compares each thread's latest message time against that stamp.
+function getLastRead(otherId) {
+  try {
+    const map = JSON.parse(localStorage.getItem('reshelf_lastRead') || '{}');
+    return map[otherId] || 0;
+  } catch {
+    return 0;
+  }
+}
+
+function setLastRead(otherId) {
+  try {
+    const map = JSON.parse(localStorage.getItem('reshelf_lastRead') || '{}');
+    map[otherId] = Date.now();
+    localStorage.setItem('reshelf_lastRead', JSON.stringify(map));
+  } catch {
+    // localStorage unavailable — read-state just won't persist, not fatal
+  }
+}
