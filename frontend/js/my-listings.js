@@ -1,3 +1,28 @@
+// ── my-listings.js ───────────────────────────────────────────────────────────
+//
+// WHERE THIS FILE IS USED:
+//   Loaded by: frontend/pages/my-listings.html
+//
+// WHAT IT DOES:
+//   Handles the "My Listings" page.
+//   Displays all listings created by the logged-in user,
+//   separating them into active and old (sold/deleted) listings.
+//
+// FUNCTIONS AND WHERE THEY'RE CALLED FROM:
+//   switchTab(tab)                           — called when user switches tabs
+//   loadListings()                           — called when page loads
+//   displayListings(listings, container)     — called by loadListings()
+//
+// HOW MY LISTINGS WORK:
+//   1. User opens My Listings page
+//   2. Script verifies authentication
+//   3. User’s listings are fetched from backend
+//   4. Listings are divided into active and old categories
+//   5. User can switch between tabs to view each category
+//
+
+
+
 requireAuth();
 
 document.addEventListener('DOMContentLoaded', () => {

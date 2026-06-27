@@ -1,3 +1,33 @@
+// ── utils.js ────────────────────────────────────────────────────────────────
+//
+// WHERE THIS FILE IS USED:
+//   Loaded globally across the frontend.
+//
+// WHAT IT DOES:
+//   Provides reusable utility functions used by multiple pages,
+//   including authentication helpers, API requests, formatting,
+//   URL handling, HTML escaping, and inbox read-state tracking.
+//
+// FUNCTIONS AND WHERE THEY'RE CALLED FROM:
+//   getCurrentUser()  — retrieves logged-in user from localStorage
+//   setCurrentUser()  — stores user data after login
+//   clearCurrentUser() — removes user session during logout
+//   requireAuth()     — protects authenticated pages
+//   apiFetch()        — wrapper for backend API requests
+//   formatPrice()     — formats prices into AED currency
+//   timeAgo()         — converts dates into readable relative time
+//   getQueryParam()   — reads URL query parameters
+//   escapeHtml()      — sanitizes user-generated text
+//   getLastRead()     — retrieves inbox read timestamps
+//   setLastRead()     — updates inbox read timestamps
+//
+// HOW UTILITIES WORK:
+//   1. Centralize common helper functions
+//   2. Reduce repeated code across frontend pages
+//   3. Handle shared browser storage and API communication
+// ────────────────────────────────────────────────────────────────────────────
+
+
 const API_BASE = '/api';
 
 // ── Auth helpers ──────────────────────────────────────────

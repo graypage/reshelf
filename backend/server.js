@@ -1,3 +1,31 @@
+// ── server.js ────────────────────────────────────────────────────────────────
+//
+// WHERE THIS FILE IS USED:
+//   Main backend server file for the Reshelf web application.
+//   Runs using Node.js with Express and handles all API requests.
+//
+// WHAT IT DOES:
+//   Manages backend logic for the entire application including
+//   authentication, listings, user profiles, interests, and messaging.
+//   It also reads and writes application data using JSON files as storage.
+//
+// MAIN FEATURES HANDLED IN THIS FILE:
+//   Authentication  — Signup, login, password reset
+//   Listings        — Create, browse, update, delete listings
+//   Profile         — View and update user profiles
+//   Interests       — Save and remove interested listings
+//   Messaging       — Inbox, conversations, sending messages
+//
+// HOW THE BACKEND WORKS:
+//   1. Frontend sends API requests to routes inside this server
+//   2. Express processes the request and validates data
+//   3. JSON files act as a lightweight database for storing data
+//   4. Server returns JSON responses back to frontend
+//   5. Frontend updates the UI using the received data
+// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');

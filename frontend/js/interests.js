@@ -1,3 +1,31 @@
+// ── interests.js ─────────────────────────────────────────────────────────────
+//
+// WHERE THIS FILE IS USED:
+//   Loaded by: frontend/pages/interests.html
+//
+// WHAT IT DOES:
+//   Handles the user's saved interests page.
+//   Displays all listings the user marked as "interested"
+//   and allows removing them from the saved list.
+//
+// FUNCTIONS AND WHERE THEY'RE CALLED FROM:
+//   loadInterests()              — called when page loads
+//   removeInterest(listingId)   — called when user clicks Remove button
+//
+// HOW INTERESTS WORK:
+//   1. User opens the interests page
+//   2. Script verifies the user is logged in
+//   3. Saved listings are fetched from the backend
+//   4. Listings are displayed as cards
+//   5. User can remove a listing from their interests
+// ─────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
 requireAuth();
 
 document.addEventListener('DOMContentLoaded', () => {

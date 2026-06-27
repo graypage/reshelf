@@ -1,3 +1,28 @@
+// ── index.js ──────────────────────────────────────────────────────────────
+//
+// WHERE THIS FILE IS USED:
+//   Loaded by: homepage / listings page
+//
+// WHAT IT DOES:
+//   Handles displaying all book listings.
+//   Fetches listings from the backend, renders listing cards,
+//   and supports search + advanced filtering.
+//
+// FUNCTIONS AND WHERE THEY'RE CALLED FROM:
+//   loadListings()   — called on page load and after search/filter changes
+//   handleSearch()   — called by the search button or search form
+//   toggleAdvanced() — called by the advanced filter toggle button
+//
+// HOW LISTING SEARCH WORKS:
+//   1. Page loads and requests all listings from the backend
+//   2. Listings are displayed as clickable cards
+//   3. Users can search by keyword or apply filters
+//   4. Filters are converted into query parameters
+//   5. Backend returns only matching listings
+// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
   loadListings();
 });

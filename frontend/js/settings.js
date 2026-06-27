@@ -1,15 +1,42 @@
+// ── settings.js ──────────────────────────────────────────────────────────────
+//
+// WHERE THIS FILE IS USED:
+//   Loaded by: frontend/pages/settings.html
+//
+// WHAT IT DOES:
+//   Handles all user settings functionality including profile updates,
+//   account information, password changes, and personal preferences.
+//
+// FUNCTIONS AND WHERE THEY'RE CALLED FROM:
+//   loadProfileFromBackend() — called when page loads
+//   showMessage()            — displays success/error feedback
+//   hideMessage()            — hides feedback messages
+//   isValidEmail()           — validates email format
+//
+// HOW SETTINGS WORK:
+//   1. Load profile data from backend
+//   2. Allow user to switch between settings tabs
+//   3. Process form submissions for each settings section
+//   4. Validate user input before saving changes
+// ─────────────────────────────────────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', async () => {
+  // Select all settings tabs and content sections
   const tabs      = document.querySelectorAll('.settings-tab');
   const sections  = document.querySelectorAll('.settings-section');
   const messageBox = document.getElementById('settings-message');
 
+  // Password visibility toggle button
   const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+
+  // Password input fields
   const passwordInputs = [
     document.getElementById('currentPassword'),
     document.getElementById('newPassword'),
     document.getElementById('confirmPassword'),
   ];
 
+  // Toggle password visibility between hidden and visible
   if (togglePasswordBtn) {
     togglePasswordBtn.addEventListener('click', () => {
       const isHidden = passwordInputs[0].type === 'password';
@@ -21,6 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Load profile data from backend
   await loadProfileFromBackend();
 
+  // Handle tab switching in settings page
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const targetId = tab.dataset.section;
@@ -32,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Profile form
+  // Updates user profile information such as name, university, and bio
   document.getElementById('profile-section').addEventListener('submit', async (e) => {
     e.preventDefault();
     const name       = document.getElementById('displayName').value.trim();
@@ -58,20 +87,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('account-section').addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value.trim();
+
+    // Validate email format before accepting changes
     if (email && !isValidEmail(email)) {
       showMessage('Please enter a valid email address.', 'error');
       return;
     }
+
     showMessage('Account info noted (email changes require additional verification).', 'success');
   });
 
   // Password form
+  // Handles secure password update
   document.getElementById('password-section').addEventListener('submit', async (e) => {
     e.preventDefault();
     const currentPassword = document.getElementById('currentPassword').value;
     const newPassword     = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
 
+    // Validate password fields
     if (!currentPassword || !newPassword || !confirmPassword) {
       showMessage('Please fill in all password fields.', 'error'); return;
     }
@@ -92,6 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
+    // Reset form after successful password update
     document.getElementById('password-section').reset();
     passwordInputs.forEach(i => { i.type = 'password'; });
     if (togglePasswordBtn) togglePasswordBtn.textContent = 'Show Password';
@@ -99,6 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Preferences form (stored locally — not critical user data)
+  // Saves user preferences in local storage
   document.getElementById('preferences-section')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const prefs = {
@@ -125,6 +161,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('email').value = user.email || '';
   }
 
+  // Displays success/error message to user
   function showMessage(msg, type) {
     messageBox.textContent = msg;
     messageBox.style.display = 'block';
@@ -139,16 +176,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Hides message box
   function hideMessage() {
     messageBox.style.display = 'none';
     messageBox.textContent = '';
   }
 
+  // Validates email format using regular expression
   function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 });
 
+// Fetch profile data from backend and pre-fill form fields
 async function loadProfileFromBackend() {
   const profile = await apiFetch('/profile');
   if (!profile || profile.error) return;

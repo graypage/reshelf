@@ -1,7 +1,33 @@
+// ── conversation.js ───────────────────────────────────────────────────────────
+//
+// WHERE THIS FILE IS USED:
+//   Loaded by: frontend/pages/conversation.html
+//
+// WHAT IT DOES:
+//   Handles the messaging system between two users.
+//   Loads conversations, displays messages, sends new messages,
+//   and continuously polls the backend for updates.
+//
+// FUNCTIONS AND WHERE THEY'RE CALLED FROM:
+//   loadConversation() — called when page loads and every 3 seconds via polling
+//   sendMessage()      — called by the Send button or pressing Enter
+//
+// HOW MESSAGING WORKS:
+//   1. User opens a conversation with another user
+//   2. The other user’s ID is read from the URL query parameter (?id=...)
+//   3. loadConversation() fetches all messages from the backend
+//   4. Messages are displayed as either "mine" or "theirs"
+//   5. sendMessage() sends new messages to POST /api/messages
+//   6. Polling refreshes the chat every 3 seconds for near real-time updates
+// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 let currentOtherId = null;
 let pollInterval = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Make sure the user is logged in before showing the conversation page
   requireAuth();
   if (!getCurrentUser()) return; // requireAuth() is redirecting to auth.html — stop here
 
@@ -25,6 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// ── loadConversation ─────────────────────────────────────────────────────────
+// Fetches all messages between current user and selected user.
+// Updates conversation header, listing info, and message history.
+
 async function loadConversation() {
   const user = getCurrentUser();
   if (!user) return;
@@ -42,7 +72,7 @@ async function loadConversation() {
   // Mark this conversation as "read" now — clears the unread dot in the inbox
   setLastRead(currentOtherId);
   
-  // Added by antigravity to populate listing title and view listing link dynamically
+  // Added by ashwin to populate listing title and view listing link dynamically
   const listingTitleParam = getQueryParam('listingTitle');
   const listingIdParam = getQueryParam('listingId');
   
@@ -60,6 +90,10 @@ async function loadConversation() {
       }
     }
   }
+    // ── Listing Information Handling ──────────────────────────────────────────
+  // Some conversations are tied to marketplace listings.
+  // Show listing title and "View Listing" link if available.
+
 
   const infoEl = document.querySelector('.convo-listing-info');
   const viewListingLink = document.getElementById('view-listing-link');
@@ -85,7 +119,7 @@ async function loadConversation() {
   const isScrolledToBottom = area.scrollHeight - area.clientHeight <= area.scrollTop + 50;
   const isFirstLoad = area.innerHTML.trim() === '';
 
-  // Added by antigravity to prefill the message input if we came from a specific listing
+  // Added by ashwin to prefill the message input if we came from a specific listing
   const listingTitle = getQueryParam('listingTitle');
   if (messages.length === 0 && listingTitle && isFirstLoad) {
     const input = document.getElementById('message-input');
@@ -132,7 +166,7 @@ async function sendMessage() {
   const user = getCurrentUser();
   input.value = '';
 
-  // Added by antigravity to pass listing info with the message
+  // Added by ashwin to pass listing info with the message
   const listingId = getQueryParam('listingId');
   const listingTitle = getQueryParam('listingTitle');
 

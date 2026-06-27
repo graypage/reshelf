@@ -1,3 +1,26 @@
+// ── inbox.js ─────────────────────────────────────────────────────────────────
+//
+// WHERE THIS FILE IS USED:
+//   Loaded by: frontend/pages/inbox.html
+//
+// WHAT IT DOES:
+//   Handles the user inbox page.
+//   Fetches all conversation threads, displays the latest message from each,
+//   and shows unread indicators for conversations with new messages.
+//
+// FUNCTIONS AND WHERE THEY'RE CALLED FROM:
+//   loadInbox() — called when page loads and every 5 seconds via polling
+//
+// HOW INBOX WORKS:
+//   1. User opens the inbox page
+//   2. The script verifies the user is logged in
+//   3. loadInbox() requests all message threads from the backend
+//   4. Each thread shows the other user, latest message, and timestamp
+//   5. Unread conversations display a notification dot
+//   6. Polling refreshes the inbox every 5 seconds for updates
+// ─────────────────────────────────────────────────────────────────────────────
+
+
 document.addEventListener('DOMContentLoaded', () => {
   requireAuth();
   if (!getCurrentUser()) return; // requireAuth() is redirecting to auth.html — stop here
@@ -6,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Refresh periodically so new messages/threads show up without a manual reload
   setInterval(loadInbox, 5000);
 });
+
+// ── loadInbox ────────────────────────────────────────────────────────────────
+// Fetches all conversation threads for the current user
+// and renders them in the inbox UI.
 
 async function loadInbox() {
   const user = getCurrentUser();

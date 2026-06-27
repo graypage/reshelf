@@ -1,5 +1,25 @@
-// ── profile.js ──────────────────────────────────────────
 
+// ── profile.js ───────────────────────────────────────────────────────────────
+//
+// WHERE THIS FILE IS USED:
+//   Loaded by: frontend/pages/profile.html
+//
+// WHAT IT DOES:
+//   Handles the user profile page.
+//   Fetches and displays the logged-in user's profile information
+//   along with all active listings created by that user.
+//
+// FUNCTIONS AND WHERE THEY'RE CALLED FROM:
+//   loadProfile()  — called when page loads
+//   loadListings() — called when page loads
+//
+// HOW PROFILE PAGE WORKS:
+//   1. User opens the profile page
+//   2. Script verifies the user is authenticated
+//   3. Profile details are fetched from backend
+//   4. User information is displayed on the page
+//   5. User’s active listings are loaded and shown below profile
+// ─────────────────────────────────────────────────────────────────────────────
 requireAuth();
 
 document.addEventListener('DOMContentLoaded', () => {
