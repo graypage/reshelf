@@ -24,21 +24,37 @@
 </head>
 <body>
 
+  <!-- Navbar is injected here by navbar.js -->
   <div id="navbar"></div>
 
   <div class="page-content">
     <div class="container">
 
+      <!-- ── Hero / Search section ── -->
       <div class="hero">
         <h1>re.shelf</h1>
         <p>Buy and sell second-hand academic resources with students near you.</p>
+
+        <!--
+          Search bar — the input and button call handleSearch() in index.js.
+          handleSearch() reads this input along with the filter dropdowns below
+          and sends a GET request to /api/listings?q=...&uni=...&subject=...&type=...
+        -->
         <div class="search-bar">
           <input type="text" id="search-input" placeholder="Search by title, author, ISBN...">
           <button class="btn btn-primary" onclick="handleSearch()">Search</button>
         </div>
+
+        <!--
+          "Advanced search" toggle — clicking this calls toggleAdvanced() in index.js
+          which shows/hides the filter dropdowns below
+        -->
         <div class="advanced-toggle" onclick="toggleAdvanced()">&#9660; Advanced search</div>
+
+        <!-- Advanced filter dropdowns — hidden by default, shown by toggleAdvanced() -->
         <div class="advanced-filters" id="advanced-filters">
           <div class="filters-row">
+
             <div class="form-group">
               <label>University</label>
               <select id="filter-uni">
@@ -46,18 +62,11 @@
                 <option>American University of Sharjah</option>
                 <option>University of Sharjah</option>
                 <option>Khalifa University</option>
+                <option>University of Dubai</option>
+                <option>Zayed University</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Subject</label>
-              <select id="filter-subject">
-                <option value="">All subjects</option>
-                <option>Engineering</option>
-                <option>Business</option>
-                <option>Medicine</option>
-                <option>Arts</option>
-              </select>
-            </div>
+
             <div class="form-group">
               <label>Resource type</label>
               <select id="filter-type">
@@ -66,49 +75,28 @@
                 <option>Notes</option>
                 <option>Lab Manual</option>
                 <option>Past Papers</option>
+                <option>Other</option>
               </select>
             </div>
+
           </div>
+
+          <!-- Clicking "Apply filters" triggers the same handleSearch() function -->
           <button class="btn btn-primary" onclick="handleSearch()">Apply filters</button>
         </div>
       </div>
 
+      <!-- ── Listings grid ── -->
+      <!--
+        This div starts empty. When the page loads, index.js calls loadListings()
+        which fetches all active listings from GET /api/listings and builds
+        the listing cards dynamically and inserts them here.
+
+        Each card links to frontend/pages/listing.html?id=X so clicking it
+        opens the full listing detail page.
+      -->
       <div class="section-title">Recent listings</div>
-      <div class="listings-grid" id="listings-grid">
-        <div class="listing-card" onclick="window.location.href='frontend/pages/listing.html?id=1'">
-          <div class="listing-card-img-placeholder">No image</div>
-          <div class="listing-card-body">
-            <div class="listing-card-title">Calculus: Early Transcendentals</div>
-            <div class="listing-card-sub">AUS · Engineering</div>
-            <div class="listing-card-meta">
-              <span class="listing-card-price">AED 80</span>
-              <span class="tag tag-active">Active</span>
-            </div>
-          </div>
-        </div>
-        <div class="listing-card" onclick="window.location.href='frontend/pages/listing.html?id=2'">
-          <div class="listing-card-img-placeholder">No image</div>
-          <div class="listing-card-body">
-            <div class="listing-card-title">Principles of Marketing</div>
-            <div class="listing-card-sub">UOS · Business</div>
-            <div class="listing-card-meta">
-              <span class="listing-card-price">AED 60</span>
-              <span class="tag tag-dead">Dead listing</span>
-            </div>
-          </div>
-        </div>
-        <div class="listing-card" onclick="window.location.href='frontend/pages/listing.html?id=3'">
-          <div class="listing-card-img-placeholder">No image</div>
-          <div class="listing-card-body">
-            <div class="listing-card-title">Organic Chemistry Notes</div>
-            <div class="listing-card-sub">KU · Medicine</div>
-            <div class="listing-card-meta">
-              <span class="listing-card-price">AED 30</span>
-              <span class="tag tag-active">Active</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="listings-grid" id="listings-grid"></div>
 
     </div>
   </div>
@@ -119,7 +107,13 @@
     <a href="frontend/pages/faq.html">FAQ</a> &nbsp;|&nbsp;
     <a href="frontend/pages/legal.html">Legal</a>
   </footer>
- <!-- Scripts -->  
+
+  <!--
+    Script load order:
+      1. utils.js  — apiFetch(), getCurrentUser(), etc. Must load first.
+      2. navbar.js — injects the navbar HTML and shows login/logout buttons
+      3. index.js  — fetches and renders the listings grid, handles search
+  -->
   <script src="frontend/js/utils.js"></script>
   <script src="frontend/js/navbar.js"></script>
   <script src="frontend/js/index.js"></script>
