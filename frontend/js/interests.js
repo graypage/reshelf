@@ -1,5 +1,4 @@
 // ── interests.js ─────────────────────────────────────────────────────────────
-//
 // WHERE THIS FILE IS USED:
 //   Loaded by: frontend/pages/interests.html
 //
@@ -11,7 +10,7 @@
 // FUNCTIONS AND WHERE THEY'RE CALLED FROM:
 //   loadInterests()              — called when page loads
 //   removeInterest(listingId)   — called when user clicks Remove button
-//
+
 // HOW INTERESTS WORK:
 //   1. User opens the interests page
 //   2. Script verifies the user is logged in
@@ -19,13 +18,6 @@
 //   4. Listings are displayed as cards
 //   5. User can remove a listing from their interests
 // ─────────────────────────────────────────────────────────────────────────────
-
-
-
-
-
-
-
 requireAuth();
 
 document.addEventListener('DOMContentLoaded', () => {
