@@ -1,20 +1,32 @@
 [
   {
-    "id": 1,
-    "userId": 1,
-    "listingId": 4,
-    "dateAdded": "2026-06-21T10:15:00.000Z"
-  },
-  {
     "id": 2,
-    "userId": 1,
-    "listingId": 5,
-    "dateAdded": "2026-06-22T14:45:00.000Z"
+    "userId": 4,
+    "listingId": 1,
+    "dateAdded": "2026-06-17T14:45:00.000Z"
   },
   {
     "id": 3,
+    "userId": 1,
+    "listingId": 4,
+    "dateAdded": "2026-06-13T09:30:00.000Z"
+  },
+  {
+    "id": 4,
     "userId": 2,
-    "listingId": 2,
-    "dateAdded": "2026-06-22T16:30:00.000Z"
+    "listingId": 3,
+    "dateAdded": "2026-06-11T16:00:00.000Z"
+  },
+  {
+    "id": 5,
+    "userId": 4,
+    "listingId": 6,
+    "dateAdded": "2026-06-19T12:00:00.000Z"
+  },
+  {
+    "id": 6,
+    "userId": 3,
+    "listingId": 14,
+    "dateAdded": "2026-06-27T08:27:29.180Z"
   }
 ]

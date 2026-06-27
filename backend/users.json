@@ -10,5 +10,25 @@
     "name": "test",
     "email": "test@test.com",
     "password": "$2b$10$bd1/LUziQBKXvgJsfVkpPeRPB73kXdjtUtLShHJTs8gNPdqOetUeG"
+  },
+  {
+    "id": 3,
+    "name": "test1",
+    "email": "test1@gmail.com",
+    "password": "$2b$10$oNAjbOEWUROn1sk6vPiDDePzj7mnInY0cNArr1SMBEL2zkwlvMOMe",
+    "university": "",
+    "location": "",
+    "bio": "",
+    "joined": "June 2026"
+  },
+  {
+    "id": 4,
+    "name": "test2",
+    "email": "test2@gmail.com",
+    "password": "$2b$10$9kEMQePUPtXhpAwlcm0gSuZQxfYNE5jL9DBs2eavS9YQ8l0RKIAb6",
+    "university": "",
+    "location": "",
+    "bio": "",
+    "joined": "June 2026"
   }
 ]

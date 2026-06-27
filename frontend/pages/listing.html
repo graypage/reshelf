@@ -21,45 +21,77 @@
   </style>
 </head>
 <body>
+
+  <!-- Navbar is injected here by navbar.js -->
   <div id="navbar"></div>
+
   <div class="page-content">
     <div class="container">
+
+      <!-- Breadcrumb link back to the browse page -->
       <div style="margin-bottom:16px;font-size:14px;color:var(--text-muted);">
         <a href="../../index.html">Browse</a> &rsaquo; Listing detail
       </div>
+
       <div class="listing-layout">
+
+        <!-- Left column: listing image (or placeholder if no image was uploaded) -->
         <div>
-          <div class="listing-image">No image uploaded</div>
+          <div class="listing-image" id="listing-image">No image uploaded</div>
         </div>
+
+        <!-- Right column: all listing details, filled in by listing.js -->
         <div class="listing-info">
-          <span class="tag tag-active">Active</span>
-          <h1 id="listing-title">Calculus: Early Transcendentals</h1>
-          <div class="listing-price" id="listing-price">AED 80</div>
+
+          <!-- Status tag (e.g. "Active" or "Sold") — set by listing.js -->
+          <span class="tag" id="listing-status-tag"></span>
+
+          <!-- Title, price, and metadata — all set by listing.js -->
+          <h1 id="listing-title"></h1>
+          <div class="listing-price" id="listing-price"></div>
           <div class="listing-meta">
-            <span id="listing-uni">AUS</span>
-            <span id="listing-subject">Engineering</span>
-            <span id="listing-type">Textbook</span>
-            <span id="listing-date">Posted 3 days ago</span>
+            <span id="listing-uni"></span>
+            <span id="listing-subject"></span>
+            <span id="listing-type"></span>
+            <span id="listing-date"></span>
           </div>
-          <div class="listing-desc" id="listing-desc">
-            Good condition, minimal highlights. Used for one semester only. Includes all original pages.
-          </div>
-          <div class="action-buttons">
-            <button class="btn btn-primary" onclick="handleInterested()">I'm interested</button>
-            <button class="btn btn-outline" onclick="handleMessage()">Message seller</button>
-          </div>
+
+          <!-- Description — set by listing.js -->
+          <div class="listing-desc" id="listing-desc"></div>
+
+          <!--
+            Action buttons — built entirely by listing.js AFTER the listing data loads.
+            The JS figures out what to show based on who is viewing:
+              - Owner sees an "Edit listing" button
+              - Sold listings show a "no longer available" message
+              - Everyone else sees "I'm interested" + "Message seller"
+            Buttons are created in JS (not hardcoded here) so they always have
+            the correct listing data when clicked.
+          -->
+          <div class="action-buttons" id="action-buttons"></div>
+
+          <!-- Seller info card — filled in by listing.js -->
           <div class="seller-card">
             <h3>Seller</h3>
-            <a href="profile.html?id=1" id="seller-name" style="color:var(--primary);font-weight:600;">Ahmed K.</a>
-            <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">Sharjah area · Member since 2024</div>
+            <a id="seller-name" style="color:var(--primary);font-weight:600;"></a>
+            <div id="seller-meta" style="font-size:13px;color:var(--text-muted);margin-top:4px;"></div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
+
   <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
     &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
   </footer>
+
+  <!--
+    Script load order matters:
+      1. utils.js    — apiFetch(), getCurrentUser(), etc. Must load first.
+      2. navbar.js   — builds the navbar HTML and calls updateNavAuth()
+      3. listing.js  — fetches this listing from the API and fills in the page
+  -->
   <script src="../js/utils.js"></script>
   <script src="../js/navbar.js"></script>
   <script src="../js/listing.js"></script>

@@ -11,69 +11,123 @@
     .auth-card h2 { margin-bottom: 24px; font-size: 22px; }
     .auth-switch { font-size: 14px; text-align: center; margin-top: 16px; color: var(--text-muted); }
     .auth-switch a { color: var(--primary); cursor: pointer; }
+
+    /* Only the panel with class "active" is shown — showPanel() switches between them */
     .form-panel { display: none; }
     .form-panel.active { display: block; }
   </style>
 </head>
 <body>
 
+  <!-- Navbar is injected here by navbar.js -->
   <div id="navbar"></div>
 
   <div class="page-content">
     <div class="auth-card">
 
-      <!-- Login -->
+      <!--
+        There are three panels (login, signup, reset).
+        Only one is visible at a time, controlled by showPanel() in auth.js.
+        The login panel starts visible because it has the "active" class.
+      -->
+
+      <!-- ── Login panel ── -->
       <div class="form-panel active" id="panel-login">
         <h2>Log in</h2>
+
         <div class="form-group">
           <label>Email</label>
           <input type="email" id="login-email" placeholder="you@example.com">
         </div>
+
         <div class="form-group">
           <label>Password</label>
           <input type="password" id="login-password" placeholder="••••••••">
         </div>
+
+        <!--
+          handleLogin() is in auth.js.
+          It reads the email and password fields, calls POST /api/auth/login,
+          and on success saves the user to localStorage and redirects home.
+        -->
         <button class="btn btn-primary" style="width:100%" onclick="handleLogin()">Log in</button>
+
+        <!-- Links to switch to other panels — no page reload, just shows/hides panels -->
         <div class="auth-switch mt-2">
           Don't have an account? <a onclick="showPanel('signup')">Sign up</a>
           &nbsp;·&nbsp; <a onclick="showPanel('reset')">Forgot password?</a>
         </div>
       </div>
 
-      <!-- Sign up -->
+      <!-- ── Sign up panel ── -->
       <div class="form-panel" id="panel-signup">
         <h2>Create account</h2>
+
         <div class="form-group">
           <label>Full name</label>
           <input type="text" id="signup-name" placeholder="Your name">
         </div>
+
         <div class="form-group">
           <label>Email</label>
           <input type="email" id="signup-email" placeholder="you@example.com">
         </div>
+
         <div class="form-group">
           <label>Password</label>
           <input type="password" id="signup-password" placeholder="••••••••">
         </div>
+
+        <!--
+          handleSignup() is in auth.js.
+          It reads the name, email, and password fields, calls POST /api/auth/signup,
+          and on success switches back to the login panel.
+        -->
         <button class="btn btn-primary" style="width:100%" onclick="handleSignup()">Create account</button>
-        <div class="auth-switch mt-2">Already have an account? <a onclick="showPanel('login')">Log in</a></div>
+
+        <div class="auth-switch mt-2">
+          Already have an account? <a onclick="showPanel('login')">Log in</a>
+        </div>
       </div>
 
-      <!-- Password reset -->
+      <!-- ── Password reset panel ── -->
       <div class="form-panel" id="panel-reset">
         <h2>Reset password</h2>
-        <p class="text-muted mt-1" style="margin-bottom:20px;font-size:14px;">Enter your email and we'll send a reset link.</p>
+        <p class="text-muted mt-1" style="margin-bottom:20px;font-size:14px;">
+          Enter your email and a new password. (Dummy project — no token/email verification.)
+        </p>
+
         <div class="form-group">
           <label>Email</label>
           <input type="email" id="reset-email" placeholder="you@example.com">
         </div>
-        <button class="btn btn-primary" style="width:100%" onclick="handleReset()">Send reset link</button>
-        <div class="auth-switch mt-2"><a onclick="showPanel('login')">Back to log in</a></div>
+
+        <div class="form-group">
+          <label>New password</label>
+          <input type="password" id="reset-new-password" placeholder="••••••••">
+        </div>
+
+        <!--
+          handleReset() is in auth.js.
+          Sends email + newPassword to POST /api/auth/reset-password,
+          which overwrites the stored password directly (no token check).
+        -->
+        <button class="btn btn-primary" style="width:100%" onclick="handleReset()">Set new password</button>
+
+        <div class="auth-switch mt-2">
+          <a onclick="showPanel('login')">Back to log in</a>
+        </div>
       </div>
 
     </div>
   </div>
 
+  <!--
+    Script load order:
+      1. utils.js  — apiFetch(), getCurrentUser(), setCurrentUser(), etc.
+      2. navbar.js — injects the navbar
+      3. auth.js   — handles login, signup, panel switching
+  -->
   <script src="../js/utils.js"></script>
   <script src="../js/navbar.js"></script>
   <script src="../js/auth.js"></script>

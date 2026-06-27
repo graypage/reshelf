@@ -14,24 +14,40 @@
   </style>
 </head>
 <body>
+
+  <!-- Navbar is injected here by navbar.js -->
   <div id="navbar"></div>
+
   <div class="page-content">
     <div class="container">
       <div class="form-card">
         <h2>Create a listing</h2>
+
+        <!-- Title: the name of the book or resource being sold -->
         <div class="form-group">
           <label>Title</label>
           <input type="text" id="title" placeholder="e.g. Calculus: Early Transcendentals">
         </div>
+
+        <!-- Author: optional, mainly useful for textbooks -->
         <div class="form-group">
           <label>Author</label>
           <input type="text" id="author" placeholder="e.g. James Stewart">
         </div>
+
+        <!-- ISBN: optional, helps buyers verify the exact edition -->
         <div class="form-group">
           <label>ISBN (optional)</label>
           <input type="text" id="isbn" placeholder="e.g. 978-1-305-27177-1">
         </div>
+
         <div class="form-row">
+
+          <!--
+            University: pre-filled by create-listing.js using the seller's
+            saved university from their profile (GET /api/profile).
+            The seller can still change it if needed.
+          -->
           <div class="form-group">
             <label>University</label>
             <select id="uni">
@@ -39,20 +55,27 @@
               <option>American University of Sharjah</option>
               <option>University of Sharjah</option>
               <option>Khalifa University</option>
+              <option>University of Dubai</option>
+              <option>Zayed University</option>
+              <option>Other</option>
             </select>
           </div>
+
+          <!--
+            Subject: free-text field (not a dropdown) because subjects vary
+            too much between universities to be a fixed list.
+            e.g. "Mechanical Engineering", "Financial Accounting", "Anatomy"
+          -->
           <div class="form-group">
             <label>Subject</label>
-            <select id="subject">
-              <option value="">Select subject</option>
-              <option>Engineering</option>
-              <option>Business</option>
-              <option>Medicine</option>
-              <option>Arts</option>
-            </select>
+            <input type="text" id="subject" placeholder="e.g. Engineering, Business...">
           </div>
+
         </div>
+
         <div class="form-row">
+
+          <!-- Resource type: what kind of material is being sold -->
           <div class="form-group">
             <label>Resource type</label>
             <select id="type">
@@ -60,13 +83,19 @@
               <option>Notes</option>
               <option>Lab Manual</option>
               <option>Past Papers</option>
+              <option>Other</option>
             </select>
           </div>
+
+          <!-- Price in AED -->
           <div class="form-group">
             <label>Price (AED)</label>
-            <input type="number" id="price" placeholder="e.g. 80">
+            <input type="number" id="price" placeholder="e.g. 80" min="0">
           </div>
+
         </div>
+
+        <!-- Condition: how worn or new the item is -->
         <div class="form-group">
           <label>Condition</label>
           <select id="condition">
@@ -76,21 +105,33 @@
             <option>Poor</option>
           </select>
         </div>
+
+        <!-- Description: free text for any extra details -->
         <div class="form-group">
           <label>Description</label>
           <textarea id="description" rows="4" placeholder="Describe the item — any highlights, missing pages, edition info..."></textarea>
         </div>
-        <div class="form-group">
-          <label>Photo (optional)</label>
-          <input type="file" id="photo" accept="image/*">
-        </div>
+
+        <!--
+          "Post listing" calls handleCreateListing() in create-listing.js,
+          which reads all the field values above and sends them to POST /api/listings
+        -->
         <button class="btn btn-primary" onclick="handleCreateListing()">Post listing</button>
+
       </div>
     </div>
   </div>
+
   <footer style="text-align:center;padding:20px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);background:var(--white);">
     &copy; 2025 re.shelf &nbsp;|&nbsp;<a href="about.html">About</a> &nbsp;|&nbsp;<a href="faq.html">FAQ</a> &nbsp;|&nbsp;<a href="legal.html">Legal</a>
   </footer>
+
+  <!--
+    Script load order:
+      1. utils.js          — apiFetch(), getCurrentUser(), requireAuth(), etc.
+      2. navbar.js         — injects the navbar
+      3. create-listing.js — pre-fills university from profile, handles form submit
+  -->
   <script src="../js/utils.js"></script>
   <script src="../js/navbar.js"></script>
   <script src="../js/create-listing.js"></script>
