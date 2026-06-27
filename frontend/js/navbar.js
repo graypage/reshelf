@@ -36,6 +36,7 @@ function updateNavAuth() {
   if (user) {
     area.innerHTML = `
       <a href="${toPages}inbox.html" class="btn btn-outline">Inbox</a>
+      <a href="${toPages}interests.html" class="btn btn-outline">Interests</a>
       <a href="${toPages}create-listing.html" class="btn btn-outline">+ List item</a>
       <!-- changed by antigravity -->
       <a href="${toPages}settings.html" class="btn btn-primary">
