@@ -1,21 +1,12 @@
-// ── my-listings.js ──────────────────────────────────────────
-
 requireAuth();
 
 document.addEventListener('DOMContentLoaded', () => {
   loadListings();
 });
 
-// Switch between tabs
 function switchTab(tab) {
-
-  document.querySelectorAll('.tab').forEach(t =>
-    t.classList.remove('active')
-  );
-
-  document.querySelectorAll('.tab-panel').forEach(panel =>
-    panel.classList.remove('active')
-  );
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
 
   if (tab === 'active') {
     document.querySelectorAll('.tab')[0].classList.add('active');
@@ -24,70 +15,39 @@ function switchTab(tab) {
     document.querySelectorAll('.tab')[1].classList.add('active');
     document.getElementById('tab-old').classList.add('active');
   }
-
 }
-
-// Make function available to HTML
 window.switchTab = switchTab;
 
-// Load listings from backend
 async function loadListings() {
-
   const data = await apiFetch('/my-listings');
+  if (!data) { alert('Unable to load listings.'); return; }
 
-  if (!data) {
-    alert('Unable to load listings.');
-    return;
-  }
-
-  displayListings(
-    data.active,
-    document.getElementById('active-listings'),
-    'No active listings.'
-  );
-
-  displayListings(
-    data.old,
-    document.getElementById('old-listings'),
-    'No old/sold listings.'
-  );
-
+  displayListings(data.active, document.getElementById('active-listings'), 'No active listings yet.');
+  displayListings(data.old,    document.getElementById('old-listings'),    'No sold/deleted listings.');
 }
 
-// Display listings inside a grid
 function displayListings(listings, container, emptyMessage) {
-
   if (!listings || listings.length === 0) {
-
-    container.innerHTML = `
-      <div class="empty-state">
-        ${emptyMessage}
-      </div>
-    `;
-
+    container.innerHTML = `<div class="empty-state">${emptyMessage}</div>`;
     return;
   }
 
-  container.innerHTML = '';
-
-  listings.forEach(listing => {
-
-    container.innerHTML += `
-      <div class="listing-card">
-
-        <img src="${listing.image}" alt="${listing.title}">
-
-        <div class="listing-content">
-
-          <h3>${listing.title}</h3>
-
-          <p>${formatPrice(listing.price)}</p>
-
+  container.innerHTML = listings.map(l => `
+    <div class="listing-card" onclick="window.location.href='listing.html?id=${l.id}'" style="cursor:pointer;">
+      ${l.image
+        ? `<img src="${l.image}" alt="${l.title}" style="width:100%;height:140px;object-fit:cover;border-radius:var(--radius) var(--radius) 0 0;">`
+        : `<div class="listing-card-img-placeholder">No image</div>`}
+      <div class="listing-card-body">
+        <div class="listing-card-title">${l.title}</div>
+        <div class="listing-card-sub">${l.type || ''} · ${l.condition || ''}</div>
+        <div class="listing-card-meta">
+          <span class="listing-card-price">AED ${parseFloat(l.price).toFixed(2)}</span>
+          <span class="tag ${l.status === 'active' ? 'tag-active' : 'tag-dead'}">${l.status}</span>
         </div>
-
+        ${l.status === 'active'
+          ? `<a href="edit-listing.html?id=${l.id}" class="btn btn-outline" style="margin-top:10px;display:block;text-align:center;" onclick="event.stopPropagation()">Edit</a>`
+          : ''}
       </div>
-    `;
-
-  });
-
+    </div>
+  `).join('');
 }

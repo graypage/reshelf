@@ -36,6 +36,7 @@ function updateNavAuth() {
   if (user) {
     area.innerHTML = `
       <a href="${toPages}inbox.html" class="btn btn-outline">Inbox</a>
+      <a href="${toPages}create-listing.html" class="btn btn-outline">+ List item</a>
       <!-- changed by antigravity -->
       <a href="${toPages}settings.html" class="btn btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>

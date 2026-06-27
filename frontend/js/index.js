@@ -1,15 +1,54 @@
-// ── index.js ──────────────────────────────────────────
-// TODO: implement functions below when backend is ready
-
 document.addEventListener('DOMContentLoaded', () => {
-  // Page initialisation goes here
-  console.log('index page loaded');
+  loadListings();
 });
 
+async function loadListings(params = {}) {
+  const grid = document.getElementById('listings-grid');
+  grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px 0;">Loading...</p>';
+
+  const qs = new URLSearchParams(params).toString();
+  const listings = await apiFetch('/listings' + (qs ? '?' + qs : ''));
+
+  if (!listings || listings.error) {
+    grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px 0;">Failed to load listings.</p>';
+    return;
+  }
+
+  if (listings.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px 0;">No listings found.</p>';
+    return;
+  }
+
+  grid.innerHTML = listings.map(l => `
+    <div class="listing-card" onclick="window.location.href='frontend/pages/listing.html?id=${l.id}'">
+      ${l.image
+        ? `<img src="${l.image}" alt="${l.title}" style="width:100%;height:160px;object-fit:cover;border-radius:var(--radius) var(--radius) 0 0;">`
+        : `<div class="listing-card-img-placeholder">No image</div>`}
+      <div class="listing-card-body">
+        <div class="listing-card-title">${l.title}</div>
+        <div class="listing-card-sub">${[l.university, l.subject].filter(Boolean).join(' · ')}</div>
+        <div class="listing-card-meta">
+          <span class="listing-card-price">AED ${parseFloat(l.price).toFixed(2)}</span>
+          <span class="tag tag-active">${l.type || ''}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
 function handleSearch() {
-  const query = document.getElementById('search-input').value;
-  console.log('Search:', query);
-  // TODO: apiFetch('/search?q=' + query) then render results
+  const q       = document.getElementById('search-input').value.trim();
+  const uni     = document.getElementById('filter-uni')?.value || '';
+  const subject = document.getElementById('filter-subject')?.value || '';
+  const type    = document.getElementById('filter-type')?.value || '';
+
+  const params = {};
+  if (q)       params.q       = q;
+  if (uni)     params.uni     = uni;
+  if (subject) params.subject = subject;
+  if (type)    params.type    = type;
+
+  loadListings(params);
 }
 
 function toggleAdvanced() {
