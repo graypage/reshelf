@@ -98,8 +98,30 @@ async function handleSignup() {
 }
 
 // ── handleReset ───────────────────────────────────────────────────────────────
-// Called by the "Send reset link" button.
-// Password reset is not yet implemented in the backend.
-function handleReset() {
-  alert('Password reset is not yet available. Please contact support.');
+// Called by the "Set new password" button.
+// Dummy-project version: no email/token verification — just sends the email
+// and the new password straight to the backend, which overwrites it directly.
+async function handleReset() {
+  const email       = document.getElementById('reset-email').value.trim();
+  const newPassword = document.getElementById('reset-new-password').value;
+
+  if (!email || !newPassword) {
+    alert('Please enter your email and a new password');
+    return;
+  }
+
+  // Backend needs a matching POST /api/auth/reset-password route that finds
+  // the user by email and overwrites their stored password with newPassword.
+  const res = await apiFetch('/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ email, newPassword })
+  });
+
+  if (!res || res.error) {
+    alert(res?.error || 'Could not reset password. Check the email and try again.');
+    return;
+  }
+
+  alert('Password updated! Please log in with your new password.');
+  showPanel('login');
 }

@@ -94,7 +94,7 @@
       <div class="form-panel" id="panel-reset">
         <h2>Reset password</h2>
         <p class="text-muted mt-1" style="margin-bottom:20px;font-size:14px;">
-          Enter your email and we'll send a reset link.
+          Enter your email and a new password. (Dummy project — no token/email verification.)
         </p>
 
         <div class="form-group">
@@ -102,11 +102,17 @@
           <input type="email" id="reset-email" placeholder="you@example.com">
         </div>
 
+        <div class="form-group">
+          <label>New password</label>
+          <input type="password" id="reset-new-password" placeholder="••••••••">
+        </div>
+
         <!--
           handleReset() is in auth.js.
-          Password reset is not yet implemented — it currently shows an alert.
+          Sends email + newPassword to POST /api/auth/reset-password,
+          which overwrites the stored password directly (no token check).
         -->
-        <button class="btn btn-primary" style="width:100%" onclick="handleReset()">Send reset link</button>
+        <button class="btn btn-primary" style="width:100%" onclick="handleReset()">Set new password</button>
 
         <div class="auth-switch mt-2">
           <a onclick="showPanel('login')">Back to log in</a>
