@@ -7,27 +7,26 @@
 //   1. Checks the user is logged in (redirects to auth.html if not)
 //   2. Fetches the user's profile from GET /api/profile and pre-fills
 //      their university in the university dropdown
-//   3. handleCreateListing() is called when the "Post listing" button is clicked —
-//      it reads all the form fields and sends them to POST /api/listings
+//   3. Wires up the image upload/preview/remove controls
+//   4. handleCreateListing() is called when the "Post listing" button is clicked —
+//      it reads all the form fields (including the selected image as base64)
+//      and sends them to POST /api/listings
 //
 // WHERE handleCreateListing() IS CALLED FROM:
 //   The "Post listing" button in create-listing.html:
 //   <button onclick="handleCreateListing()">Post listing</button>
 // ─────────────────────────────────────────────────────────────────────────────
 
-// requireAuth() is in utils.js — if the user isn't logged in it immediately
-// redirects them to auth.html so they can't access this page without an account
 requireAuth();
+
+// Holds the base64 data-URL of the chosen image, or null if none was selected.
+let selectedImageBase64 = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  // Fetch the logged-in user's profile so we can pre-fill their university.
-  // apiFetch automatically sends their email in the header so the server
-  // knows who is asking.
+  // ── Pre-fill university from profile ──────────────────────────────────────
   const profile = await apiFetch('/profile');
-
   if (profile && !profile.error && profile.university) {
-    // Find the matching <option> in the university dropdown and select it
     const uniSelect = document.getElementById('uni');
     for (const opt of uniSelect.options) {
       if (opt.value === profile.university || opt.text === profile.university) {
@@ -36,6 +35,49 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
   }
+
+  // ── Image upload wiring ───────────────────────────────────────────────────
+  const imageInput  = document.getElementById('image-input');
+  const uploadArea  = document.getElementById('upload-area');
+  const previewWrap = document.getElementById('preview-wrap');
+  const previewImg  = document.getElementById('image-preview');
+  const removeBtn   = document.getElementById('remove-image');
+
+  // When a file is chosen, validate it, read it as base64, show the preview
+  imageInput.addEventListener('change', () => {
+    const file = imageInput.files[0];
+    if (!file) return;
+
+    // Guard: images only, max 5 MB
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file (JPG, PNG, WEBP…)');
+      imageInput.value = '';
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image must be under 5 MB.');
+      imageInput.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      selectedImageBase64 = e.target.result; // data:image/jpeg;base64,...
+      previewImg.src = selectedImageBase64;
+      uploadArea.style.display  = 'none';
+      previewWrap.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // "✕" button clears the chosen image and shows the upload area again
+  removeBtn.addEventListener('click', () => {
+    selectedImageBase64 = null;
+    imageInput.value    = '';
+    previewImg.src      = '';
+    previewWrap.style.display = 'none';
+    uploadArea.style.display  = 'block';
+  });
 });
 
 // ── handleCreateListing ───────────────────────────────────────────────────────
@@ -60,11 +102,14 @@ async function handleCreateListing() {
   if (!price)      { alert('Please enter a price'); return; }
   if (!university) { alert('Please select a university'); return; }
 
-  // POST to /api/listings — the backend creates the listing in listings.json
-  // and returns the newly created listing object
+  // POST to /api/listings — include the image as a base64 string if one was chosen.
+  // The backend stores whatever is passed as `image` on the listing object.
   const res = await apiFetch('/listings', {
     method: 'POST',
-    body: JSON.stringify({ title, author, isbn, university, subject, type, price, condition, description })
+    body: JSON.stringify({
+      title, author, isbn, university, subject, type, price, condition, description,
+      image: selectedImageBase64 || null
+    })
   });
 
   if (!res || res.error) {
@@ -72,7 +117,6 @@ async function handleCreateListing() {
     return;
   }
 
-  // Success — redirect to the homepage where the new listing will appear
   alert('Listing posted!');
   window.location.href = '../../index.html';
 }

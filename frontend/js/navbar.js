@@ -37,17 +37,15 @@ function updateNavAuth() {
     area.innerHTML = `
       <a href="${toPages}inbox.html" class="btn btn-outline">Inbox</a>
       <a href="${toPages}interests.html" class="btn btn-outline">Interests</a>
+      <a href="${toPages}my-listings.html" class="btn btn-outline">My listings</a>
       <a href="${toPages}create-listing.html" class="btn btn-outline">+ List item</a>
-      <!-- changed by antigravity -->
       <a href="${toPages}settings.html" class="btn btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         ${user.name}
       </a>
-      <!-- changed by antigravity -->
       <button onclick="handleLogout()" class="btn btn-outline" style="margin-left: 8px;">Log out</button>
     `;
   } else {
-    // changed by antigravity
     area.innerHTML = `<a href="${toPages}auth.html" class="btn btn-primary">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
       Log in
@@ -55,7 +53,6 @@ function updateNavAuth() {
   }
 }
 
-// changed by antigravity
 function handleLogout() {
   clearCurrentUser();
   window.location.href = window.location.pathname.includes('/pages/') ? '../../index.html' : 'index.html';
