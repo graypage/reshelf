@@ -9,6 +9,7 @@ const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '..')));
 
 const dbPath        = path.join(__dirname, 'users.json');
 const messagesPath  = path.join(__dirname, 'messages.json');

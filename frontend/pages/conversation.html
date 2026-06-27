@@ -15,7 +15,8 @@
     .messages-area { flex: 1; overflow-y: auto; padding: 8px 0; }
     .message { display: flex; margin-bottom: 14px; }
     .message.mine { justify-content: flex-end; }
-    .message-bubble { max-width: 65%; padding: 10px 15px; border-radius: 18px; font-size: 14px; line-height: 1.5; }
+    .message > div { max-width: 65%; }
+    .message-bubble { padding: 10px 15px; border-radius: 18px; font-size: 14px; line-height: 1.5; overflow-wrap: break-word; word-break: break-word; }
     .message.theirs .message-bubble { background: var(--white); box-shadow: var(--shadow); border-bottom-left-radius: 4px; }
     .message.mine .message-bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; }
     .message-time { font-size: 11px; color: var(--text-muted); margin-top: 4px; text-align: right; }

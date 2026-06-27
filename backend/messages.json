@@ -25,5 +25,95 @@
     "timestamp": "2026-06-27T09:08:28.916Z",
     "listingId": null,
     "listingTitle": null
+  },
+  {
+    "id": 4,
+    "fromUserId": 2,
+    "toUserId": 3,
+    "text": "testing 1 2 3",
+    "timestamp": "2026-06-27T09:49:09.154Z",
+    "listingId": 15,
+    "listingTitle": "Introduction to Computer Networks Past Papers"
+  },
+  {
+    "id": 5,
+    "fromUserId": 3,
+    "toUserId": 2,
+    "text": "hi",
+    "timestamp": "2026-06-27T09:49:16.849Z",
+    "listingId": null,
+    "listingTitle": null
+  },
+  {
+    "id": 6,
+    "fromUserId": 3,
+    "toUserId": 2,
+    "text": "wow",
+    "timestamp": "2026-06-27T09:49:22.870Z",
+    "listingId": null,
+    "listingTitle": null
+  },
+  {
+    "id": 7,
+    "fromUserId": 3,
+    "toUserId": 2,
+    "text": "hi how are you doing",
+    "timestamp": "2026-06-27T09:49:49.400Z",
+    "listingId": null,
+    "listingTitle": null
+  },
+  {
+    "id": 8,
+    "fromUserId": 3,
+    "toUserId": 2,
+    "text": "thingss",
+    "timestamp": "2026-06-27T09:49:57.018Z",
+    "listingId": null,
+    "listingTitle": null
+  },
+  {
+    "id": 9,
+    "fromUserId": 3,
+    "toUserId": 2,
+    "text": "introduction",
+    "timestamp": "2026-06-27T09:50:10.396Z",
+    "listingId": null,
+    "listingTitle": null
+  },
+  {
+    "id": 10,
+    "fromUserId": 3,
+    "toUserId": 2,
+    "text": "introduction to",
+    "timestamp": "2026-06-27T09:50:23.577Z",
+    "listingId": null,
+    "listingTitle": null
+  },
+  {
+    "id": 11,
+    "fromUserId": 3,
+    "toUserId": 2,
+    "text": "introduction to computer network past paper",
+    "timestamp": "2026-06-27T09:50:36.579Z",
+    "listingId": null,
+    "listingTitle": null
+  },
+  {
+    "id": 12,
+    "fromUserId": 2,
+    "toUserId": 3,
+    "text": "amazing!",
+    "timestamp": "2026-06-27T09:52:42.164Z",
+    "listingId": 15,
+    "listingTitle": "Introduction to Computer Networks Past Papers"
+  },
+  {
+    "id": 13,
+    "fromUserId": 3,
+    "toUserId": 2,
+    "text": "crazyyyy",
+    "timestamp": "2026-06-27T09:52:42.722Z",
+    "listingId": null,
+    "listingTitle": null
   }
 ]
