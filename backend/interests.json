@@ -1,11 +1,5 @@
 [
   {
-    "id": 1,
-    "userId": 3,
-    "listingId": 1,
-    "dateAdded": "2026-06-16T10:15:00.000Z"
-  },
-  {
     "id": 2,
     "userId": 4,
     "listingId": 1,
@@ -28,5 +22,11 @@
     "userId": 4,
     "listingId": 6,
     "dateAdded": "2026-06-19T12:00:00.000Z"
+  },
+  {
+    "id": 6,
+    "userId": 3,
+    "listingId": 14,
+    "dateAdded": "2026-06-27T08:27:29.180Z"
   }
 ]
