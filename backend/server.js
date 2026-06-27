@@ -103,6 +103,29 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+// ── Auth: Reset password (dummy project — no token/email verification) ──────
+// Looks the user up by email and overwrites their password directly.
+app.post('/api/auth/reset-password', async (req, res) => {
+  const { email, newPassword } = req.body;
+  if (!email || !newPassword)
+    return res.status(400).json({ error: 'Email and new password are required' });
+  if (newPassword.length < 6)
+    return res.status(400).json({ error: 'New password must be at least 6 characters' });
+
+  try {
+    const users = await readDB();
+    const idx = users.findIndex(u => u.email === email);
+    if (idx === -1) return res.status(404).json({ error: 'No account found with that email' });
+
+    users[idx].password = await bcrypt.hash(newPassword, 10);
+    await writeDB(users);
+    res.json({ message: 'Password updated' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // ── Listings: Browse / Search ────────────────────────────────
 app.get('/api/listings', async (req, res) => {
   try {
